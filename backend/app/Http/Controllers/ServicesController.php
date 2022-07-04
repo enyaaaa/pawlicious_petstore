@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\services;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
@@ -13,7 +14,7 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        //
+        return services::all();
     }
 
     /**
@@ -34,7 +35,19 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $service = new services();
+
+        $service->userId = $request->input('userId');
+        $service->serviceType = $request->input('serviceType');
+        $service->furPetName = $request->input('furPetName');
+        $service->email = $request->input('email');
+        $service->mobile = $request->input('mobile');
+        $service->appointmentDate = $request->input('appointmentDate');
+        $service->appointmentTime = $request->input('appointmentTime');
+
+        if($service->save()){
+            return $service;
+        }
     }
 
     /**
@@ -66,9 +79,20 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $service = services::find($request->id);
+
+        $service->serviceType = $request->input('serviceType');
+        $service->furPetName = $request->input('furPetName');
+        $service->email = $request->input('email');
+        $service->mobile = $request->input('mobile');
+        $service->appointmentDate = $request->input('appointmentDate');
+        $service->appointmentTime = $request->input('appointmentTime');
+
+        if($service->save()){
+            return $service;
+        }
     }
 
     /**
@@ -77,8 +101,12 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $service = services::find($request->id);
+
+        if($service->delete()){
+            return $service;
+        }
     }
 }

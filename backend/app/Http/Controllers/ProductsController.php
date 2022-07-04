@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\product;
 
-
 class ProductsController extends Controller
 {
     /**
@@ -36,7 +35,21 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $products = new product();
+
+        $products->petType = $request->input('petType');
+        $products->productCategory = $request->input('productCategory');
+        $products->productType = $request->input('productType');
+        $products->productName = $request->input('productName');
+        $products->productImage = $request->input('productImage');
+        $products->price = $request->input('price');
+        $products->description = $request->input('description');
+        $products->suitability = $request->input('suitability');
+        $products->madeIn = $request->input('madeIn');
+
+        if($products->save()){
+            return $products;
+        }
     }
 
     /**
@@ -68,9 +81,23 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $products = product::find($request->id);
+
+        $products->petType = $request->input('petType');
+        $products->productCategory = $request->input('productCategory');
+        $products->productType = $request->input('productType');
+        $products->productName = $request->input('productName');
+        $products->productImage = $request->input('productImage');
+        $products->price = $request->input('price');
+        $products->description = $request->input('description');
+        $products->suitability = $request->input('suitability');
+        $products->madeIn = $request->input('madeIn');
+
+        if($products->save()){
+            return $products;
+        }
     }
 
     /**
@@ -79,8 +106,12 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $products = product::find($request->id);
+
+        if($products->delete()){
+            return $products;
+        }
     }
 }

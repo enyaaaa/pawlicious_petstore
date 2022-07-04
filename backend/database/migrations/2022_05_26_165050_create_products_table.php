@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('description') -> nullable();
             $table->text('suitability') ->nullable();
             $table->text('madeIn') ->nullable();
+            $table->timestamps();
         });
     }
 

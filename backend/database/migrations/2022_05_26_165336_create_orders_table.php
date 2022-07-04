@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('productId');
             $table->foreign('productId')->references('id')->on('products');
             $table->unsignedBigInteger('userId');
-            $table->foreign('userId')->references('id')->on('products');
+            $table->foreign('userId')->references('id')->on('users');
             $table->integer('quantity');
             $table->string('address');
             $table->decimal('amount', 6,2);

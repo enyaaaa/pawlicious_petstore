@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ingredients');
             $table->string('directions') ->nullable();
             $table->text('nutritionalValues') ->nullable();
+            $table->timestamps();
         });
     }
 

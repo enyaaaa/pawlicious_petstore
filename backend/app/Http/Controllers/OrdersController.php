@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use Illuminate\Http\Request;
-use App\Models\recipeReview;
 
-class RecipeReviewsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RecipeReviewsController extends Controller
      */
     public function index()
     {
-        //
+        return order::all();
     }
 
     /**
@@ -35,16 +35,16 @@ class RecipeReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        $recipereview = recipeReview::find($request->id);
+        $orders = new order();
 
-        $recipereview->recipeId = $request->input('recipeId');
-        $recipereview->userId = $request->input('userId');
-        $recipereview->review = $request->input('review');
-        $recipereview->uploadImage = $request->input('uploadImage');
-        $recipereview->rating = $request->input('rating');
+        $orders->productId = $request->input('productId');
+        $orders->userId = $request->input('userId');
+        $orders->quantity = $request->input('quantity');
+        $orders->address = $request->input('address');
+        $orders->amount = $request->input('amount');
 
-        if($recipereview->save()){
-            return $recipereview;
+        if($orders->save()){
+            return $orders;
         }
     }
 
@@ -88,8 +88,12 @@ class RecipeReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $orders = order::find($request->id);
+
+        if($orders->delete()){
+            return $orders;
+        }
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('mobile');
             $table->string('profilePic') ->nullable();
             $table->string('token') ->nullable();
+            $table->timestamps();
         });
     }
 

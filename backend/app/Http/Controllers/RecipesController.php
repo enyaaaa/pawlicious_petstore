@@ -35,7 +35,18 @@ class RecipesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $recipe = new recipes();
+
+        $recipe->title = $request->input('title');
+        $recipe->recipeImage = $request->input('recipeImage');
+        $recipe->video = $request->input('video');
+        $recipe->ingredients = $request->input('ingredients');
+        $recipe->directions = $request->input('directions');
+        $recipe->nutritionalValues = $request->input('nutritionalValues');
+
+        if($recipe->save()){
+            return $recipe;
+        }
     }
 
     /**
@@ -67,9 +78,21 @@ class RecipesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $recipe = recipes::find($request->id);
+
+        $recipe->title = $request->input('title');
+        $recipe->recipeImage = $request->input('recipeImage');
+        $recipe->video = $request->input('video');
+        $recipe->ingredients = $request->input('ingredients');
+        $recipe->directions = $request->input('directions');
+        $recipe->nutritionalValues = $request->input('nutritionalValues');
+
+
+        if($recipe->save()){
+            return $recipe;
+        }
     }
 
     /**
@@ -78,8 +101,12 @@ class RecipesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $recipe = recipes::find($request->id);
+
+        if($recipe->delete()){
+            return $recipe;
+        }
     }
 }

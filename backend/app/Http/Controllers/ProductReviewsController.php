@@ -35,9 +35,9 @@ class ProductReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        $productreview = productReview::find($request->id);
+        $productreview = new productReview();
 
-        $productreview->recipeId = $request->input('recipeId');
+        $productreview->productId = $request->input('productId');
         $productreview->userId = $request->input('userId');
         $productreview->review = $request->input('review');
         $productreview->uploadImage = $request->input('uploadImage');
@@ -77,9 +77,17 @@ class ProductReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $productreview = productReview::find($request->id);
+
+        $productreview->review = $request->input('review');
+        $productreview->uploadImage = $request->input('uploadImage');
+        $productreview->rating = $request->input('rating');
+
+        if($productreview->save()){
+            return $productreview;
+        }
     }
 
     /**
@@ -88,8 +96,12 @@ class ProductReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $productreview = productReview::find($request->id);
+
+        if($productreview->delete()){
+            return $productreview;
+        }
     }
 }
