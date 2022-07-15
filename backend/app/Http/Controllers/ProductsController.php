@@ -40,6 +40,7 @@ class ProductsController extends Controller
         $products->petType = $request->input('petType');
         $products->productCategory = $request->input('productCategory');
         $products->productType = $request->input('productType');
+        $products->productBrand = $request->input('productBrand');
         $products->productName = $request->input('productName');
         $products->productImage = $request->input('productImage');
         $products->price = $request->input('price');
@@ -88,6 +89,7 @@ class ProductsController extends Controller
         $products->petType = $request->input('petType');
         $products->productCategory = $request->input('productCategory');
         $products->productType = $request->input('productType');
+        $products->productBrand = $request->input('productBrand');
         $products->productName = $request->input('productName');
         $products->productImage = $request->input('productImage');
         $products->price = $request->input('price');

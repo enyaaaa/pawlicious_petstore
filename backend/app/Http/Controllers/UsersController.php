@@ -4,50 +4,83 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    public function register (Request $request){
-        $user = User::find($request->input('username'));
-    
-        if($user){
-            return response()->json (['error' => 'User already exists!']);
-        }
-    
-        $user = new User;
-    
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-        $user->mobile = $request->input('mobile');
-        $user->profilePic = $request->input('profilePic');
+    public function register(Request $request)
+    {
 
-        $user->token = '';
-    
-        $user->save();
-    
-        return $user;
-    
+        $validator  = Validator::make($request->all(), [
+            "username" => 'required|max:191',
+            "email" => 'required|email|max:191|unique:users,email',
+            "password" => 'required|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'mobile' => $request->mobile,
+                'profilePic' => $request->profilePic,
+            ]);
+
+            $token = $user->createToken($user->email . 'token')->plainTextToken;
+
+            return response()->json([
+                'status' => 200,
+                'username' => $user->username,
+                'token' => $token,
+                'message' => 'Registered Successfully'
+            ]);
         }
-    
-        public function login (Request $request){
-            $user = User::where('username', $request->input('username'))->first();
-    
-            if ($user != null){
-                if ($request -> password == $user->password){
-                    $user->token = Str::random(60);
-                    $user->save();
-    
-                    return response()->json([
-                        'username' => $user->username,
-                        'token' => $user->token,
-                    ]);
-                } else {
-                    return response()->json(['message' => 'Invalid Password']);
-                }
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|max:191',
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Invalid',
+                ]);
             } else {
-                return response()->json(['message' => 'Username not found']);
+                $token = $user->createToken($user->email . 'token')->plainTextToken;
+
+                return response()->json([
+                    'status' => 200,
+                    'username' => $user->username,
+                    'token' => $token,
+                    'message' => 'Logged in Successfully'
+                ]);
             }
         }
+    }
+
+    public function logout(Request $request){
+
+        $request->user()->tokens()->delete();
+        
+        return response()->json([
+            "status"=>200,
+            "message"=>"Logged out successfully",
+        ]);
+    }
 }

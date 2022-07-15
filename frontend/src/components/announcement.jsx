@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+
+
+const announcement = () => {
+  return <Container>Hurry get your fur babies some products! Free Shipping on Orders Over $100</Container>;
+};
+
 const Container = styled.div`
   height: 30px;
   background-color: #d6b0a6;
@@ -10,9 +16,5 @@ const Container = styled.div`
   font-size: 14px;
   font-weight: 500;
 `;
-
-const announcement = () => {
-  return <Container>Hurry get your fur babies some products! Free Shipping on Orders Over $50</Container>;
-};
 
 export default announcement;

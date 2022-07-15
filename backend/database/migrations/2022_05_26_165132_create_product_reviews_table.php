@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('productId');
-            $table->foreign('productId')->references('id')->on('products');
+            $table->foreign('productId')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
             $table->text('review');

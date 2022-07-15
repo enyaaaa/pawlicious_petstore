@@ -1,14 +1,63 @@
 import { Badge } from "@material-ui/core";
-import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined, Menu } from "@material-ui/icons";
-import React from "react";
+import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined, Menu, AccessAlarm } from "@material-ui/icons";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from '../images/pets.png';
 import { NavLink as Link } from 'react-router-dom';
 
 
+
+
+
+
+const navbar = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  var AuthButtons = '';
+  if (!localStorage.getItem('auth_token')) {
+    AuthButtons = (
+      <NavLink to='/login'><AccountCircleOutlined /></NavLink>
+    );
+  } else {
+    AuthButtons = (
+      <NavLink to='/profile'><AccessAlarm /></NavLink>
+    );
+  }
+
+  return (
+    <Container>
+      <Wrapper>
+        <Left>
+          <NavLink to='/'>
+            <Image src={logo} />
+            <Logo>PAWLICIOUS</Logo>
+          </NavLink>
+        </Left>
+        <Center>
+          <NavLink to='/products'>Products</NavLink>
+          <NavLink to='/services'>Services</NavLink>
+        </Center>
+        <Right isOpen={isOpen}>
+          <NavLink to='/'><SearchOutlined /></NavLink>
+          {AuthButtons}
+          <NavLink to='/cart'>
+            <Badge badgeContent={4} color="primary" overlap="rectangular">
+              <LocalMallOutlined />
+            </Badge>
+          </NavLink>
+        </Right>
+        <Hamburger onClick={() => setIsOpen(!isOpen)}>
+          <Menu/>
+        </Hamburger>
+      </Wrapper>
+    </Container>
+  );
+};
+
 const Image = styled.img`
-    height: 50px;
-    width: 50px;
+  height: 50px;
+  width: 50px;
 `
 
 const Container = styled.div`
@@ -36,6 +85,9 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+  &:hover {
+    color: #bb7b6b;
+  }
 `;
 
 const Logo = styled.h1`
@@ -52,37 +104,23 @@ const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    overflow: hidden;
+    flex-direction: column;
+    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
+    transition: max-height 0.3s ease-in;
+    width: 100%;
+  }
 `;
 
-const navbar = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <NavLink to='/'>
-            <Image src={logo} />
-            <Logo>PAWLICIOUS</Logo>
-          </NavLink>
-        </Left>
-        <Center>
-          <NavLink to="/dogProducts">Dogs</NavLink>
-          <NavLink to='/catProducts'>Cats</NavLink>
-          <NavLink to='/smallpetsProducts'>Small Pets</NavLink>
-          <NavLink to='/services'>Services</NavLink>
-        </Center>
-        <Right>
-          <NavLink to='/'><SearchOutlined /></NavLink>
-          <NavLink to='/login'><AccountCircleOutlined /></NavLink>
-          <NavLink to='/'>
-            <Badge badgeContent={4} color="primary" overlap="rectangular">
-              <LocalMallOutlined />
-            </Badge>
-          </NavLink>
-          <NavLink to='/'><Menu /></NavLink>
-        </Right>
-      </Wrapper>
-    </Container>
-  );
-};
+const Hamburger = styled.div`
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
 
 export default navbar;

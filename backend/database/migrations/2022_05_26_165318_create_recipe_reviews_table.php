@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('recipe_reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('recipeId');
-            $table->foreign('recipeId')->references('id')->on('recipes');
+            $table->foreign('recipeId')->references('id')->on('recipes')->onDelete('cascade');;
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
             $table->text('review');

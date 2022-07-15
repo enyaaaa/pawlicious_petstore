@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('petType');
             $table->text('productCategory');
             $table->text('productType');
+            $table->text('productBrand');
             $table->string('productName');
             $table->string('productImage') ->nullable();
             $table->decimal('price', 6,2);
