@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { NavLink as Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+import Announcement from '../../components/user/announcement';
+import Navbar from '../../components/user/navbar';
+import Footer from '../../components/user/footer';
+
 
 
 const login = () => {
@@ -32,7 +36,7 @@ const login = () => {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_username', res.data.username);
           swal('Success', res.data.message, "success");
-          navigate("/", {replace: true});
+          navigate("/", { replace: true });
 
         } else if (res.data.status === 401) {
           swal('Warning', res.data.message, "warning")
@@ -45,26 +49,31 @@ const login = () => {
   }
 
   return (
-    <Container>
-      <Wrapper>
-        <Title>LOGIN</Title>
-        <Form onSubmit={loginSubmit}>
-          <Input type="email" name="email" placeholder="email" onChange={handleInput} value={loginInput.email} />
-          <span>{loginInput.error_list.email}</span>
-          <Input type="password" name="password" placeholder="password" onChange={handleInput} value={loginInput.password} />
-          <span>{loginInput.error_list.password}</span>
-          <ForgetPasswowrdLink to="/">FORGET PASSWORD?</ForgetPasswowrdLink>
-          <Button type="submit">SIGN IN</Button>
-          <CreateAccountLink to="/register">CREATE ACCOUNT</CreateAccountLink>
-        </Form>
-      </Wrapper>
-    </Container>
+    <div>
+      <Announcement />
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>LOGIN</Title>
+          <Form onSubmit={loginSubmit}>
+            <Input type="email" name="email" placeholder="email" onChange={handleInput} value={loginInput.email} />
+            <span>{loginInput.error_list.email}</span>
+            <Input type="password" name="password" placeholder="password" onChange={handleInput} value={loginInput.password} />
+            <span>{loginInput.error_list.password}</span>
+            <ForgetPasswowrdLink to="/">FORGET PASSWORD?</ForgetPasswowrdLink>
+            <Button type="submit">SIGN IN</Button>
+            <CreateAccountLink to="/register">CREATE ACCOUNT</CreateAccountLink>
+          </Form>
+        </Wrapper>
+      </Container>
+      <Footer />
+    </div>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  height: 85vh;
+  height: 90vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)), url("https://wichitamom.com/wp-content/uploads/2022/02/veterinarian-in-Wichita.png") center;

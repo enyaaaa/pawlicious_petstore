@@ -1,18 +1,12 @@
 import { Badge } from "@material-ui/core";
-import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined, Menu, AccessAlarm } from "@material-ui/icons";
+import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined, Menu } from "@material-ui/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
-import logo from '../images/pets.png';
+import logo from '../../assets/user/img/pets.png';
 import { NavLink as Link } from 'react-router-dom';
-
-
-
-
-
+import { mobile } from "../../responsive";
 
 const navbar = () => {
-
-  const [isOpen, setIsOpen] = useState(false);
 
   var AuthButtons = '';
   if (!localStorage.getItem('auth_token')) {
@@ -21,9 +15,11 @@ const navbar = () => {
     );
   } else {
     AuthButtons = (
-      <NavLink to='/profile'><AccessAlarm /></NavLink>
+      <NavLink to='/profile'><AccountCircleOutlined /></NavLink>
     );
   }
+
+
 
   return (
     <Container>
@@ -35,10 +31,12 @@ const navbar = () => {
           </NavLink>
         </Left>
         <Center>
-          <NavLink to='/products'>Products</NavLink>
+          <NavLink to='/products/Dog'>Dog Products</NavLink>
+          <NavLink to='/products/Cat'>Cat Products</NavLink>
+          <NavLink to='/products/Small Pets'>Small Pets Products</NavLink>
           <NavLink to='/services'>Services</NavLink>
         </Center>
-        <Right isOpen={isOpen}>
+        <Right>
           <NavLink to='/'><SearchOutlined /></NavLink>
           {AuthButtons}
           <NavLink to='/cart'>
@@ -47,9 +45,6 @@ const navbar = () => {
             </Badge>
           </NavLink>
         </Right>
-        <Hamburger onClick={() => setIsOpen(!isOpen)}>
-          <Menu/>
-        </Hamburger>
       </Wrapper>
     </Container>
   );
@@ -69,6 +64,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
@@ -103,24 +99,7 @@ const Center = styled.div`
 const Right = styled.div`
   flex: 1;
   display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: 768px) {
-    overflow: hidden;
-    flex-direction: column;
-    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
-    transition: max-height 0.3s ease-in;
-    width: 100%;
-  }
-`;
-
-const Hamburger = styled.div`
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  @media (max-width: 768px) {
-    display: flex;
-  }
+  justify-content: flex-end;  
 `;
 
 export default navbar;

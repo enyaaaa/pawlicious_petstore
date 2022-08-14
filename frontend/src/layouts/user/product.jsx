@@ -1,19 +1,29 @@
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 
+import Announcement from '../../components/user/announcement';
+import Navbar from '../../components/user/navbar';
+import Footer from '../../components/user/footer';
+import { useLocation } from "react-router-dom";
 
 
 const product = () => {
+
+  const location = useLocation();
+
+  console.log(location.state);
   return (
     <Container>
+      <Announcement />
+      <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://cdn.shopify.com/s/files/1/1149/5008/products/PetHolisticFreezeDriedCanineDuckRawDiet14oz_397g_170x.png?v=1653569149" />
+          <Image src={location.state.productImage} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Pet Holistic Freeze Dried Canine Duck Raw Diet 14oz (397g)</Title>
+          <Title>{location.state.productName}</Title>
           <Desc>
-          Pet Holistic Freeze Duck are produced using only the freshest, human-grade ingredients which are free from antibiotics, steroids and added hormones This combination of ingredients offers optimum levels of the amino acids (protein), essential fatty acids, natural-occurring enzymes, and necessary vitamins and minerals that are the basic requirements for your pets healthy biological functions Our ingredients provide superior levels of amino and essential fatty acids along with optimum levels of calcium. Pet Holistic Freeze Duck allows you to give your canine friend all the benefits of a raw diet in a convenient freeze-dried form. The variety of ingredients mimics what the diet of animals in the wild are in a superior bio-available composition. It's grain and gluten-free, and doesn't contain any corn, wheat, or soy, making it great for dogs with sensitivities Our products are naturally preserved without the need for any synthetic preservatives.
+          {location.state.productName}
           </Desc>
           <Price>$44</Price>
           <AddContainer>
@@ -26,6 +36,7 @@ const product = () => {
           <Button>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
+      <Footer/>
     </Container>
   );
 };

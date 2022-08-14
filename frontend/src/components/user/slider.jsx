@@ -17,7 +17,7 @@ const slider = () => {
                 <Carousel.Caption>
                     <h3>Cat Products</h3>
                     <p>Explore an extended range of cat care and gromming products!</p>
-                    <NavLink to='/products'>View More</NavLink>
+                    <NavLink to='/products/cat'>View More</NavLink>
                 </Carousel.Caption>
                 
             </Carousel.Item>
@@ -30,7 +30,7 @@ const slider = () => {
                 <Carousel.Caption>
                     <h3>Dog Products</h3>
                     <p>Explore an extended range of dog care and grooming products!</p>
-                    <NavLink to='/products'>View More</NavLink>
+                    <NavLink to='/products/dog'>View More</NavLink>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={3000}>

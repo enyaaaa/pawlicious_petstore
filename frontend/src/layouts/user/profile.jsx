@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
+import Announcement from '../../components/user/announcement';
+import Navbar from '../../components/user/navbar';
+import Footer from '../../components/user/footer';
+
 
 
 const profile = () => {
@@ -17,14 +21,19 @@ const profile = () => {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('auth_username');
                 swal('Success', res.data.message, "success");
-                navigate("/", {replace: true});
+                navigate("/", { replace: true });
             }
         });
     }
 
     return (
 
-        <div><Button type='submit' onClick={logoutSubmit}>LOGOUT</Button></div>
+        <div>
+            <Announcement />
+            <Navbar />
+            <Button type='submit' onClick={logoutSubmit}>LOGOUT</Button>
+            <Footer />
+        </div>
 
     )
 }

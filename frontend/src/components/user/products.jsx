@@ -1,18 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
+const dogproducts = () => {
 
-
-const products = () => {
-
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const {type} = useParams();
 
   useEffect(() => {
-    axios.get('api/products').then(({ data }) => {
+    axios.get(`api/products/${type}`).then(({ data }) => {
       setProducts(data);
     })
-  },[])
+  }, [type])
+
+  const goToProduct = (product) => {
+    console.log(product);
+    navigate("/product", { state: product });
+  }
+
+  console.log(products)
+
 
   return (
     <Container>
@@ -20,7 +30,7 @@ const products = () => {
         return (
           <Card key={product.id}>
             <Imagecontainer>
-              <Image src={product.productImage} />
+              <Image onClick={() => {goToProduct(product)}} src={product.productImage} />
             </Imagecontainer>
             <Brand>{product.productBrand}</Brand>
             <Name>{product.productName}</Name>
@@ -96,4 +106,4 @@ const Button = styled.button`
   }
 `;
 
-export default products;
+export default dogproducts;

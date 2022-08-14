@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink as Link } from 'react-router-dom';
+import { mobile } from "../../responsive";
 
 const category = () => {
     return (
@@ -21,7 +22,7 @@ const category = () => {
                     </Info>
                 </Container>
                 <Container>
-                    <Image src="https://trinityplumbingllc.com/wp-content/uploads/2020/12/pet-shower-dog-bath-luxury-plumbing-trinity-plumbing.jpg" />
+                    <Image src="https://sc04.alicdn.com/kf/H8f929211b7a1423d91dd37aa93daa6ad7/244211425/H8f929211b7a1423d91dd37aa93daa6ad7.jpg" />
                     <Info>
                         <Title>CLEANING & TOILETRIES</Title>
                         <NavLink to='/products'>SHOW MORE</NavLink>
@@ -42,6 +43,7 @@ const Wrapped = styled.div`
     display: flex;
     padding: 20px;
     justify-content: space-between;
+    ${mobile({ padding: "0px", flexDirection:"column" })}
 `
 
 const Container = styled.div`
@@ -55,6 +57,7 @@ const Image = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    ${mobile({ height: "20vh" })}
 `
 
 const Info = styled.div`

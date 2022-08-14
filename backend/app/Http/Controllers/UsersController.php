@@ -62,7 +62,7 @@ class UsersController extends Controller
                     'message' => 'Invalid',
                 ]);
             } else {
-                $token = $user->createToken($user->email . 'token')->plainTextToken;
+                $token = $user->createToken($user->email.'token')->plainTextToken;
 
                 return response()->json([
                     'status' => 200,

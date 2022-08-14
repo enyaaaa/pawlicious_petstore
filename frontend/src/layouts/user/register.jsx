@@ -1,8 +1,12 @@
 import axios from "axios"
 import styled from "styled-components";
-import { NavLink as Link, useNavigate} from 'react-router-dom';
+import { NavLink as Link, useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import swal from 'sweetalert';
+
+import Announcement from '../../components/user/announcement';
+import Navbar from '../../components/user/navbar';
+import Footer from '../../components/user/footer';
 
 const register = () => {
 
@@ -17,7 +21,7 @@ const register = () => {
 
   const handleInput = (e) => {
     e.persist();
-    setRegister({ ...registerInput, [e.target.name]: e.target.value})
+    setRegister({ ...registerInput, [e.target.name]: e.target.value })
   }
 
   const registerSubmit = (e) => {
@@ -33,8 +37,6 @@ const register = () => {
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.post(`/api/register`, data).then(res => {
         if (res.data.status === 200) {
-          localStorage.setItem('auth_token', res.data.token);
-          localStorage.setItem('auth_username', res.data.username);
           swal("Success", res.data.message, "success");
           navigate('/login', { replace: true });
         }
@@ -46,28 +48,33 @@ const register = () => {
   }
 
   return (
-    <Container>
-      <Wrapper>
-        <Title>SIGN UP</Title>
-        <Form onSubmit={registerSubmit}>
-          <Input type="text" name="username" placeholder="username" onChange={handleInput} value={registerInput.username} />
-          <span>{registerInput.error_list.username}</span>
-          <Input type="text" name="email" placeholder="email" onChange={handleInput} value={registerInput.email} />
-          <span>{registerInput.error_list.email}</span>
-          <Input type="password" name="password" placeholder="password" onChange={handleInput} value={registerInput.password} />
-          <span>{registerInput.error_list.password}</span>
-          <Input type="password" name="confirmpassword" placeholder="confirm password" onChange={handleInput} value={registerInput.confirmpassword} />
-          <Button type="submit">REGISTER</Button>
-          <LoginLink to="/login">AREADY HAVE AN ACCOUNT?</LoginLink>
-        </Form>
-      </Wrapper>
-    </Container>
+    <div>
+      <Announcement />
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>SIGN UP</Title>
+          <Form onSubmit={registerSubmit}>
+            <Input type="text" name="username" placeholder="username" onChange={handleInput} value={registerInput.username} />
+            <Span>{registerInput.error_list.username}</Span>
+            <Input type="text" name="email" placeholder="email" onChange={handleInput} value={registerInput.email} />
+            <Span>{registerInput.error_list.email}</Span>
+            <Input type="password" name="password" placeholder="password" onChange={handleInput} value={registerInput.password} />
+            <Span>{registerInput.error_list.password}</Span>
+            <Input type="password" name="confirmpassword" placeholder="confirm password" onChange={handleInput} value={registerInput.confirmpassword} />
+            <Button type="submit">REGISTER</Button>
+            <LoginLink to="/login">AREADY HAVE AN ACCOUNT?</LoginLink>
+          </Form>
+        </Wrapper>
+      </Container>
+      <Footer />
+    </div>
   );
 };
 
 const Container = styled.div`
   width: 100%;
-  height: 85vh;
+  height: 90vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)), url("https://wichitamom.com/wp-content/uploads/2022/02/veterinarian-in-Wichita.png") center;
@@ -98,6 +105,10 @@ const Input = styled.input`
   min-width: 40%;
   margin: 10px 0;
   padding: 10px;
+`;
+
+const Span = styled.span`
+    color: #d6b0a6
 `;
 
 const Button = styled.button`

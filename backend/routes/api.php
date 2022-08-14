@@ -31,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
 });
 
 Route::apiResource('products', ProductsController::class);
+Route::get('products/{petType}', "App\Http\Controllers\ProductsController@show");
 Route::put('products', 'App\Http\Controllers\ProductsController@update');
 Route::delete('products', 'App\Http\Controllers\ProductsController@destroy');
 
