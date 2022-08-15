@@ -22,10 +22,8 @@ const product = () => {
         </ImgContainer>
         <InfoContainer>
           <Title>{location.state.productName}</Title>
-          <Desc>
-          {location.state.productName}
-          </Desc>
-          <Price>$44</Price>
+          <Desc>{location.state.description}</Desc>
+          <Price>${location.state.price}</Price>
           <AddContainer>
             <AmountContainer>
               <Remove />
@@ -44,17 +42,18 @@ const product = () => {
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  padding: 50px;
+  padding: 90px;
   display: flex;
+ 
 `;
 
 const ImgContainer = styled.div`
-  flex: 1;
+  flex: 0.4;
 `;
 
 const Image = styled.img`
   width: 100%;
-  height: 50vh;
+  height: 100%;
   object-fit: cover;
 `;
 

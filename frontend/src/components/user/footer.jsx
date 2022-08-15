@@ -20,9 +20,9 @@ const footer = () => {
             <Title>Shop</Title>
             <List>
               <NavLink to="/">Home</NavLink>
-              <NavLink to="/catProducts">Cat Products</NavLink>
-              <NavLink to="/dogProducts">Dog Products</NavLink>
-              <NavLink to="/smallpetsProducts">Small Pets Products</NavLink>
+              <NavLink to="/products/Cat">Cat Products</NavLink>
+              <NavLink to="/products/Dog">Dog Products</NavLink>
+              <NavLink to="/products/Small Pets">Small Pets Products</NavLink>
               <NavLink to="/services">Services</NavLink>
               <NavLink to="/">Pet Food Recipes</NavLink>
             </List>

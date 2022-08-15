@@ -10,7 +10,7 @@ const category = () => {
                 <Container>
                     <Image src="https://www.supermarketnews.com/sites/supermarketnews.com/files/styles/article_featured_retina/public/Online%20pet%20food%20trends.jpg?itok=Lu_BcCAF8" />
                     <Info>
-                        <Title>DRY FOOD</Title>
+                        <Title>FOOD</Title>
                         <NavLink to='/products'>SHOW MORE</NavLink>
                     </Info>
                 </Container>
@@ -37,28 +37,30 @@ const Header = styled.h1`
     margin-top: 20px;
     color: black;
     text-align: center;
-`
+`;
 
 const Wrapped = styled.div`
     display: flex;
     padding: 20px;
     justify-content: space-between;
-    ${mobile({ padding: "0px", flexDirection:"column" })}
-`
+    ${mobile({ padding: "0px", flexDirection: "column" })}
+`;
 
 const Container = styled.div`
     flex: 1;
     margin: 3px;
     height: 60vh;
     position: relative;
-`
+`;
 
 const Image = styled.img`
     width: 100%;
     height: 100%;
+    opacity: 0.5;
     object-fit: cover;
-    ${mobile({ height: "20vh" })}
-`
+    ${mobile({ height: "40vh" })}
+`;
+
 
 const Info = styled.div`
     position: absolute;
@@ -70,22 +72,24 @@ const Info = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
+`;
 
 const Title = styled.h1`
-    color: white;
+    color: black;
     text-align: center;
-`
+`;
 
 const NavLink = styled(Link)`
     padding: 10px;
-    font-size: 10px;
-    color: white;
+    font-size: 15px;
+    color: black;
     background-color: #d6b0a6;
     cursor: pointer;
     border-radius: 20px;
     border: none;
     text-decoration: none;
-`
+    &:hover {
+    color: #000;}
+`;
 
 export default category;

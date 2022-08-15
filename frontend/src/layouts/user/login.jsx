@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import { NavLink as Link, useNavigate } from 'react-router-dom';
+import { NavLink as Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 
 import Announcement from '../../components/user/announcement';
@@ -11,7 +11,9 @@ import Footer from '../../components/user/footer';
 
 const login = () => {
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
+
   const [loginInput, setLogin] = useState({
     email: '',
     password: '',
@@ -35,8 +37,9 @@ const login = () => {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_username', res.data.username);
+          localStorage.setItem('roles', res.data.roles);
           swal('Success', res.data.message, "success");
-          navigate("/", { replace: true });
+          navigate(from, { replace: true });
 
         } else if (res.data.status === 401) {
           swal('Warning', res.data.message, "warning")
@@ -110,6 +113,7 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
+  border-radius: 10px;
   background-color: #d6b0a6;
   color: white;
   cursor: pointer;

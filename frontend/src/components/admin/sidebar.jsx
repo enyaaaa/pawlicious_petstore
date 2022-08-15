@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink as Link } from 'react-router-dom';
-import { AccountCircleOutlined, CreditCardRounded, LocalShippingRounded, DashboardRounded, StoreRounded, SettingsApplicationsRounded, PersonOutlineRounded, ExitToAppRounded } from "@material-ui/icons";
+import { AccountCircleOutlined, CreditCardRounded, DashboardRounded, StoreRounded, PersonOutlineRounded, ExitToAppRounded, AccessAlarmOutlined } from "@material-ui/icons";
 
 const Sidebar = () => {
   return (
@@ -28,6 +28,10 @@ const Sidebar = () => {
           <Icon><CreditCardRounded /></Icon>
           Orders
         </NavLink>
+        <NavLink to='/admin/appointments'>
+          <Icon><AccessAlarmOutlined /></Icon>
+          Appointments
+        </NavLink>
         <Title>USER</Title>
         <NavLink to='/admin/profile'>
           <Icon><AccountCircleOutlined /></Icon>
@@ -37,7 +41,6 @@ const Sidebar = () => {
           <Icon><ExitToAppRounded /></Icon>
           Logout
         </Button>
-
       </Container>
     </div>
   )

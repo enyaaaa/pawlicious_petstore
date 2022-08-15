@@ -20,6 +20,7 @@ const profile = () => {
             if (res.data.status === 200) {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('auth_username');
+                localStorage.removeItem('roles');
                 swal('Success', res.data.message, "success");
                 navigate("/", { replace: true });
             }

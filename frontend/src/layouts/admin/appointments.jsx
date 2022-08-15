@@ -8,35 +8,34 @@ import { Link } from "react-router-dom";
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 
-const adminUsers = () => {
+const adminappointments = () => {
 
-    const [users, setUsers] = useState([]);
+    const [services, setServices] = useState([]);
 
     useEffect(() => {
-        axios.get(`api/users`).then(({ data }) => {
-            setUsers(data);
+        axios.get(`api/services`).then(({ data }) => {
+            setServices(data);
         })
     })
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
-        {
-            field: 'profilePic', headerName: 'Profile Pic', width: 110, renderCell: (params) => {
-                return (
-                    <Image src={params.row.profilePic} alt="" />
-                );
-            },
-        },
-        { field: 'username', headerName: 'Username', width: 350 },
-        { field: 'email', headerName: 'Email', width: 450 },
-        { field: 'mobile', headerName: 'Mobile', width: 150 },
+        { field: 'serviceType', headerName: 'Service Type', width: 110 },
+        { field: 'furPetName', headerName: 'Fur Pet Name', width: 110 },
+        { field: 'email', headerName: 'Email', width: 110 },
+        { field: 'mobile', headerName: 'Mobile', width: 90 },
+        { field: 'appointmentDate', headerName: 'Appointment Date', width: 200 },
+        { field: 'appointmentTime', headerName: 'Appointment Time', width: 200 },
         {
             field: "action",
             headerName: "Action",
-            width: 90,
+            width: 150,
             renderCell: (params) => {
                 return (
                     <>
+                        <Link to={"/admin/editproduct/" + params.row.id}>
+                            <Edit>Edit</Edit>
+                        </Link>
                         <DeleteOutline
                             className="productListDelete"
                             onClick={() => handleDelete(params.row.id)}
@@ -56,10 +55,13 @@ const adminUsers = () => {
             <Top>
                 <Navbar />
                 <Main>
-                    <Title>USERS</Title>
+                    <Header>
+                        <Title>SERVICES</Title>
+                        <NavLink to='/admin/addappointment'>add appointment</NavLink>
+                    </Header>
                     <div style={{ height: 579, width: '100%' }}>
                         <DataGrid
-                            rows={users}
+                            rows={services}
                             columns={columns}
                             pageSize={9}
                             rowsPerPageOptions={[9]}
@@ -84,22 +86,48 @@ const Top = styled.div`
     flex: 8;
 `;
 
+const Main = styled.div`
+    padding: 30px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Title = styled.h1`
     font-size: 24px;
     font-weight: 400;
 `;
 
-const Main = styled.div`
-    padding: 30px;
+const NavLink = styled(Link)`
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
+    &:hover {
+    color: #d6b0a6;
 `;
 
 const Image = styled.img`
     width: 45px;
     height: 45px;
-    border-radius: 50%;
     object-fit: cover;
     align-items: center;
 `;
 
+const Edit = styled.button`
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #d6b0a6;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px;
+`;
 
-export default adminUsers;
+
+
+export default adminappointments;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-const dogproducts = () => {
+const products = () => {
 
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -106,4 +106,4 @@ const Button = styled.button`
   }
 `;
 
-export default dogproducts;
+export default products;

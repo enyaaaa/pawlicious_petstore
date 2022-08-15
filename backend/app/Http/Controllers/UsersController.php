@@ -68,6 +68,7 @@ class UsersController extends Controller
                     'status' => 200,
                     'username' => $user->username,
                     'token' => $token,
+                    'roles' => $user->roles,
                     'message' => 'Logged in Successfully'
                 ]);
             }
@@ -82,5 +83,10 @@ class UsersController extends Controller
             "status"=>200,
             "message"=>"Logged out successfully",
         ]);
+    }
+
+    public function index()
+    {
+        return User::all();
     }
 }

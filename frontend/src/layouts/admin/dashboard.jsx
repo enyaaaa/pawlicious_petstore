@@ -7,7 +7,7 @@ import '../../assets/admin/js/scripts';
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 
-const AdminDashboard = () => {
+const adminDashboard = () => {
     return (
         <Container>
             <Side>
@@ -41,4 +41,4 @@ const Main = styled.div`
     padding: 50px;
 `;
 
-export default AdminDashboard;
+export default adminDashboard;

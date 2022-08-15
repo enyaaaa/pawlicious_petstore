@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 
-const AdminProfile = () => {
+const adminProfile = () => {
     return (
         <Container>
             <Side>
@@ -36,4 +36,4 @@ const Main = styled.div`
     padding: 50px;
 `;
 
-export default AdminProfile;
+export default adminProfile;
