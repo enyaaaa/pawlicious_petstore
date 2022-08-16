@@ -1,5 +1,5 @@
 import { Badge } from "@material-ui/core";
-import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined, Menu } from "@material-ui/icons";
+import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined } from "@material-ui/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
 import logo from '../../assets/user/img/pets.png';

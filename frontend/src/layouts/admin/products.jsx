@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 
 const adminProducts = () => {
-
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        axios.get(`api/products`).then(({ data }) => {
-            setProducts(data);
-        })
-    })
+    
+    const products = useSelector((state) => state.products.products);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },

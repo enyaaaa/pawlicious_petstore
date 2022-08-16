@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './layouts/user/home';
 import Products from './layouts/user/products';
@@ -20,6 +20,9 @@ import AdminOrders from './layouts/admin/orders';
 import AdminAppointments from './layouts/admin/appointments';
 import AddAppointment from './layouts/admin/addappointment';
 
+import { getProducts } from "./redux/actions/products";
+import store from './redux/store'
+
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
@@ -32,8 +35,12 @@ axios.interceptors.request.use(function (config) {
 })
 
 function App() {
-  return (
 
+  useEffect(() => {
+    store.dispatch(getProducts())
+  }, [])
+  
+  return (
     <Router>
       <Routes>
       {/* main routes */}

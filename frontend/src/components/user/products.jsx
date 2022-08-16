@@ -1,28 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const products = () => {
 
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const {type} = useParams();
-
-  useEffect(() => {
-    axios.get(`api/products/${type}`).then(({ data }) => {
-      setProducts(data);
-    })
-  }, [type])
+  const products = useSelector((state) => state.products.products);
 
   const goToProduct = (product) => {
     console.log(product);
     navigate("/product", { state: product });
   }
-
-  console.log(products)
-
 
   return (
     <Container>
@@ -30,7 +19,7 @@ const products = () => {
         return (
           <Card key={product.id}>
             <Imagecontainer>
-              <Image onClick={() => {goToProduct(product)}} src={product.productImage} />
+              <Image onClick={() => { goToProduct(product) }} src={product.productImage} />
             </Imagecontainer>
             <Brand>{product.productBrand}</Brand>
             <Name>{product.productName}</Name>
