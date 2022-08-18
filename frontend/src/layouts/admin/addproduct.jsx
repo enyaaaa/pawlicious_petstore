@@ -2,17 +2,22 @@ import React, { useState } from 'react'
 import styled from "styled-components";
 import Navbar from '../../components/admin/navbar';
 import Sidebar from '../../components/admin/sidebar';
+import { useNavigate } from 'react-router-dom';
 import { connect } from "react-redux";
 import { addProduct } from '../../redux/actions/products';
+import axios from 'axios';
 
 const addproduct = ({ addProduct }) => {
 
     const [img, setImg] = useState();
+    const [error_list, setError] = useState([]);
 
-    const onImageChange = (e) => {
-        const [file] = e.target.files;
-        setImg(URL.createObjectURL(file));
-    };
+    const navigate = useNavigate();
+
+    function onImageChange(e) {
+        console.log(e.target.files);
+        setImg(e.target.files[0])
+    }
 
     const [formData, setFormData] = useState(
         {
@@ -21,24 +26,27 @@ const addproduct = ({ addProduct }) => {
             productType: "",
             productBrand: "",
             productName: "",
-            productImage: "",
+            /*  productImage: "", */
             price: "",
             description: "",
             suitability: "",
             madeIn: "",
+            /* error_list: [], */
         },
         []
     );
 
-    const { petType, productCategory, productType, productBrand, productName, productImage, price, description, suitability, madeIn } = formData;
+    /*     const { petType, productCategory, productType, productBrand, productName, price, description, suitability, madeIn } = formData; */
 
-    const onChange = e =>
+    const handleInput = (e) => {
+        e.persist();
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
 
-    console.log(formData);
-
-    const onSubmit = e => {
+    /* const onSubmit= (e) => {
         e.preventDefault();
+        formData.productImage = img
+        console.log(formData);
         addProduct(formData);
         setFormData({
             petType: "--",
@@ -46,14 +54,72 @@ const addproduct = ({ addProduct }) => {
             productType: "--",
             productBrand: "--",
             productName: "",
-            productImage: "",
+            productImage: img,
             price: "",
             description: "",
             suitability: "--",
             madeIn: "--",
         });
-        swal('Product has been added', "Success");
-    };
+        swal("Success", "", "success");
+        navigate('/admin/products', { replace: true });
+    }; */
+
+    /* const productSubmit = (e) => {
+        e.preventDefault();
+        formData.productImage = img
+        const data = {
+            petType: formData.petType,
+            productCategory: formData.productCategory,
+            productType: formData.productType,
+            productBrand: formData.productBrand,
+            productName: formData.productName,
+            productImage: img,
+            price: formData.price,
+            description: formData.description,
+            suitability: formData.suitability,
+            madeIn: formData.madeIn,
+        }
+
+        axios.post(`/api/products`, data).then(res => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+                navigate('/admin/products', { replace: true });
+            }
+            else {
+                setFormData({ ...formData, error_list: res.data.validation_errors })
+            }
+        });
+
+
+        console.log(data)
+    } */
+
+    const productSubmit = (e) => {
+        e.preventDefault();
+        const data = new FormData();
+        data.append('petType', formData.petType);
+        data.append('productCategory', formData.productCategory);
+        data.append('productType', formData.productType);
+        data.append('productBrand', formData.productBrand);
+        data.append('productName', formData.productName);
+        data.append('productImage', img);
+        data.append('price', formData.price);
+        data.append('description', formData.description);
+        data.append('suitability', formData.suitability);
+        data.append('madeIn', formData.madeIn);
+
+        axios.post(`/api/products`, data).then(res => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+                setError([]);
+                navigate('/admin/products', { replace: true });
+            }
+            else {
+                /* setFormData({ ...formData, error_list: res.data.validation_errors }) */
+                setError(res.data.validation_errors);
+            }
+        });
+    }
 
     return (
         <Container>
@@ -65,28 +131,30 @@ const addproduct = ({ addProduct }) => {
                 <Main>
                     <Wrapper>
                         <Title>ADD PRODUCT</Title>
-                        <Form onSubmit={e => { onSubmit(e); }}>
+                        <Form onSubmit={productSubmit} action="{{url('productImage')}}" enctype="multipart/form-data" >
                             <Item>
                                 <Label>Pet Type</Label>
-                                <Select name="petType" id="petType" value={petType} onChange={e => onChange(e)}>
+                                <Select name="petType" id="petType" value={formData.petType} onChange={handleInput}>
                                     <option value="--">---</option>
                                     <option value="Dog">Dog</option>
                                     <option value="Cat">Cat</option>
                                     <option value="SmallPets">Small Pet</option>
                                 </Select>
+                                <Validation>{error_list.petType}</Validation>
                             </Item>
                             <Item>
                                 <Label>Category</Label>
-                                <Select name="productCategory" id="productCategory" value={productCategory} onChange={e => onChange(e)}>
+                                <Select name="productCategory" id="productCategory" value={formData.productCategory} onChange={handleInput}>
                                     <option value="--">---</option>
                                     <option value="Food">Food</option>
                                     <option value="Accessories">Accessories</option>
                                     <option value="CleaningandToiletries">Cleaning & Toiletries</option>
                                 </Select>
+                                <Validation>{error_list.productCategory}</Validation>
                             </Item>
                             <Item>
                                 <Label>Product Type</Label>
-                                <Select name="productType" id="productType" value={productType} onChange={e => onChange(e)}>
+                                <Select name="productType" id="productType" value={formData.productType} onChange={handleInput}>
                                     <option value="--">---</option>
                                     <option value="Dry">Dry Food</option>
                                     <option value="Wet">Wet Food</option>
@@ -95,32 +163,36 @@ const addproduct = ({ addProduct }) => {
                                     <option value="Bath">Bath</option>
                                     <option value="Petwipes">Pet Wipes</option>
                                 </Select>
+                                <Validation>{error_list.productType}</Validation>
                             </Item>
                             <Item>
                                 <Label>Brand</Label>
-                                <Select name="productBrand" id="productBrand" value={productBrand} onChange={e => onChange(e)}>
+                                <Select name="productBrand" id="productBrand" value={formData.productBrand} onChange={handleInput}>
                                     <option value="--">---</option>
                                     <option value="Supreme">Supreme</option>
                                     <option value="AbsoluteHolistic">Absolute Holistic</option>
                                     <option value="TasteoftheWild">Taste of the Wild</option>
                                     <option value="AbsoluteBites">Absolute Bites</option>
                                 </Select>
+                                <Validation>{error_list.productBrand}</Validation>
                             </Item>
                             <Item>
                                 <Label>Name</Label>
-                                <Input type="text" name='productName' placeholder="Product name" value={productName} onChange={e => onChange(e)} />
+                                <Input type="text" name='productName' placeholder="Product name" value={formData.productName} onChange={handleInput} />
+                                <Validation>{error_list.productName}</Validation>
                             </Item>
                             <Item>
                                 <Label>Price</Label>
-                                <Input type="text" name='price' placeholder="$$$" value={price} onChange={e => onChange(e)} />
+                                <Input type="text" name='price' placeholder="$$$" value={formData.price} onChange={handleInput} />
+                                <Validation>{error_list.price}</Validation>
                             </Item>
                             <Item>
                                 <Label>Description</Label>
-                                <Textarea type="text" name='description' placeholder="123" value={description} onChange={e => onChange(e)} />
+                                <Textarea type="text" name='description' placeholder="123" value={formData.description} onChange={handleInput} />
                             </Item>
                             <Item>
                                 <Label>Suitability</Label>
-                                <Select name="suitability" id="active" value={suitability} onChange={e => onChange(e)} >
+                                <Select name="suitability" id="active" value={formData.suitability} onChange={handleInput} >
                                     <option value="--">---</option>
                                     <option value="puppy">Puppy</option>
                                     <option value="kitten">Kitten</option>
@@ -128,22 +200,27 @@ const addproduct = ({ addProduct }) => {
                                     <option value="senior">Senior</option>
                                     <option value="allages">All Ages</option>
                                 </Select>
+                                <Validation>{error_list.suitability}</Validation>
                             </Item>
                             <Item>
                                 <Label>Made In</Label>
-                                <Select name="madeIn" id="madeIn" value={madeIn} onChange={e => onChange(e)} >
+                                <Select name="madeIn" id="madeIn" value={formData.madeIn} onChange={handleInput} >
                                     <option value="--">---</option>
                                     <option value="USA">USA</option>
                                     <option value="Australia">Australia</option>
                                     <option value="Canada">Canada</option>
                                 </Select>
                             </Item>
-                            <ImageItem>
-                                <Label>Image</Label>
-                                <Image src={img} alt="" />
-                                <Input type="file" name='productImage' value={productImage} onChange={ onImageChange } />
+                            <Item>
+                            <Flex>
+                                <ImageItem>
+                                    <Label>Image</Label>
+                                    <Image type="file" name='productImage' onChange={onImageChange} />
+                                    <Validation>{error_list.productImage}</Validation>
+                                </ImageItem>
                                 <Button type="submit">ADD</Button>
-                            </ImageItem>
+                            </Flex>
+                            </Item>
                         </Form>
                     </Wrapper>
                 </Main>
@@ -205,6 +282,11 @@ const Input = styled.input`
     padding: 10px;
 `;
 
+const Validation = styled.span`
+font-size: 12px;
+color: #b5968d;
+`;
+
 const Textarea = styled.textarea`
     height: 110px;
 `;
@@ -214,19 +296,21 @@ const Select = styled.select`
 `;
 
 const ImageItem = styled.div`
-    margin-top: -35px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-top: -45px;
 `;
 
-const Image = styled.img`
-    height: 95px;
-    width: 95px;
+const Image = styled.input`
+    margin-left: 0px;
 `;
 
 const Button = styled.button`
-    margin-left: 60px;
+    margin-top: -25px;
     height: 50px;
     width: 100px;
-    padding: 10px;
     font-size: 20px;
     color: white;
     background-color: #d6b0a6;
@@ -237,6 +321,10 @@ const Button = styled.button`
     &:hover {
         color: #000;
     }
+`;
+
+const Flex =styled.div`
+    display:flex;
 `;
 
 

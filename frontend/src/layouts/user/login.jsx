@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
 import { NavLink as Link, useNavigate, useLocation } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import axios from "axios";
 
 import Announcement from '../../components/user/announcement';
@@ -11,8 +12,11 @@ import Footer from '../../components/user/footer';
 
 const login = () => {
 
-  const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const [loginInput, setLogin] = useState({
     email: '',
@@ -38,6 +42,10 @@ const login = () => {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_username', res.data.username);
           localStorage.setItem('roles', res.data.roles);
+          const token = res?.data?.token;
+          const roles = res?.data?.roles;
+          console.log(res.data);
+          setAuth({roles, token});
           swal('Success', res.data.message, "success");
           navigate(from, { replace: true });
 
@@ -60,9 +68,9 @@ const login = () => {
           <Title>LOGIN</Title>
           <Form onSubmit={loginSubmit}>
             <Input type="email" name="email" placeholder="email" onChange={handleInput} value={loginInput.email} />
-            <span>{loginInput.error_list.email}</span>
+            <Validation>{loginInput.error_list.email}</Validation>
             <Input type="password" name="password" placeholder="password" onChange={handleInput} value={loginInput.password} />
-            <span>{loginInput.error_list.password}</span>
+            <Validation>{loginInput.error_list.password}</Validation>
             <ForgetPasswowrdLink to="/">FORGET PASSWORD?</ForgetPasswowrdLink>
             <Button type="submit">SIGN IN</Button>
             <CreateAccountLink to="/register">CREATE ACCOUNT</CreateAccountLink>
@@ -107,6 +115,11 @@ const Input = styled.input`
   min-width: 40%;
   margin: 10px 0;
   padding: 10px;
+`;
+
+const Validation = styled.span`
+font-size: 12px;
+color: #b5968d;
 `;
 
 const Button = styled.button`

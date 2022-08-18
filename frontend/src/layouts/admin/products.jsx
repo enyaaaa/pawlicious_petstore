@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
+import axios from "axios";
 
 const adminProducts = () => {
     
-    const products = useSelector((state) => state.products.products);
+    const [products, setProducts] = useState([]);
 
+    useEffect(() => {
+        axios.get(`api/products`).then(({ data }) => {
+            setProducts(data);
+        })
+    },[])
+    
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'petType', headerName: 'Pet Type', width: 90 },
@@ -20,9 +26,7 @@ const adminProducts = () => {
         {
             field: 'productImage', headerName: 'Image', width: 90, renderCell: (params) => {
                 return (
-
-                    <Image src={params.row.productImage} alt="" />
-
+                    <Image src={`http://localhost:8000/images/product/${params.row.productImage}`} alt="" />
                 );
             },
         },

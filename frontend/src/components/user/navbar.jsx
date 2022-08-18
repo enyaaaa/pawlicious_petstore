@@ -8,18 +8,33 @@ import { mobile } from "../../responsive";
 
 const navbar = () => {
 
-  var AuthButtons = '';
+  var Profile = '';
   if (!localStorage.getItem('auth_token')) {
-    AuthButtons = (
+    Profile = (
       <NavLink to='/login'><AccountCircleOutlined /></NavLink>
     );
   } else {
-    AuthButtons = (
+    Profile = (
       <NavLink to='/profile'><AccountCircleOutlined /></NavLink>
     );
   }
 
-
+  var Cart = '';
+  if (!localStorage.getItem('auth_token')) {
+    Cart = (
+      <NavLink to='/login'>
+          <LocalMallOutlined />
+      </NavLink>
+    );
+  } else {
+    Cart = (
+      <NavLink to='/cart'>
+        <Badge badgeContent={4} color="primary" overlap="rectangular">
+          <LocalMallOutlined />
+        </Badge>
+      </NavLink>
+    );
+  }
 
   return (
     <Container>
@@ -38,12 +53,8 @@ const navbar = () => {
         </Center>
         <Right>
           <NavLink to='/'><SearchOutlined /></NavLink>
-          {AuthButtons}
-          <NavLink to='/cart'>
-            <Badge badgeContent={4} color="primary" overlap="rectangular">
-              <LocalMallOutlined />
-            </Badge>
-          </NavLink>
+          {Profile}
+          {Cart}
         </Right>
       </Wrapper>
     </Container>

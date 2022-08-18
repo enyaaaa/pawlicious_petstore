@@ -21,6 +21,7 @@ class UsersController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
+                'status' => 401,
                 'validation_errors' => $validator->errors(),
             ]);
         } else {

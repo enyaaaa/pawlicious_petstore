@@ -18,7 +18,7 @@ const product = () => {
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src={location.state.productImage} />
+          <Image src={`${location.state.productImage}`} />
         </ImgContainer>
         <InfoContainer>
           <Title>{location.state.productName}</Title>

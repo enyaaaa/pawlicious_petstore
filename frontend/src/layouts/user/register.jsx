@@ -56,11 +56,11 @@ const register = () => {
           <Title>SIGN UP</Title>
           <Form onSubmit={registerSubmit}>
             <Input type="text" name="username" placeholder="username" onChange={handleInput} value={registerInput.username} />
-            <Span>{registerInput.error_list.username}</Span>
+            <Validation>{registerInput.error_list.username}</Validation>
             <Input type="text" name="email" placeholder="email" onChange={handleInput} value={registerInput.email} />
-            <Span>{registerInput.error_list.email}</Span>
+            <Validation>{registerInput.error_list.email}</Validation>
             <Input type="password" name="password" placeholder="password" onChange={handleInput} value={registerInput.password} />
-            <Span>{registerInput.error_list.password}</Span>
+            <Validation>{registerInput.error_list.password}</Validation>
             <Input type="password" name="confirmpassword" placeholder="confirm password" onChange={handleInput} value={registerInput.confirmpassword} />
             <Button type="submit">REGISTER</Button>
             <LoginLink to="/login">AREADY HAVE AN ACCOUNT?</LoginLink>
@@ -107,8 +107,9 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const Span = styled.span`
-    color: #d6b0a6
+const Validation = styled.span`
+font-size: 12px;
+color: #b5968d;
 `;
 
 const Button = styled.button`

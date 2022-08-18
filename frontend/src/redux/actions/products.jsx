@@ -14,8 +14,8 @@ export const getProducts = () => async dispatch => {
         dispatch({
             type: PRODUCT_ERROR,
             payload:{
-                msg: error.response.statusText,
-                status: err.response.status}
+                msg: error.response.data,
+                status: error.response.data}
         })
     }
 }
@@ -23,7 +23,7 @@ export const getProducts = () => async dispatch => {
 export const addProduct = formData => async dispatch => {
     const config = {
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data"
         }
     };
     try {
@@ -34,11 +34,12 @@ export const addProduct = formData => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.log(err.response.data);
         dispatch({
             type: PRODUCT_ERROR,
             payload: {
-                msg: err.response.statusText,
-                status: err.response.status
+                msg: err.response.data,
+                status: err.response.data
             }
         });
     }

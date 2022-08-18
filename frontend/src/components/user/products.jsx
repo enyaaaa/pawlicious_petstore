@@ -19,7 +19,7 @@ const products = () => {
         return (
           <Card key={product.id}>
             <Imagecontainer>
-              <Image onClick={() => { goToProduct(product) }} src={product.productImage} />
+              <Image onClick={() => { goToProduct(product) }} src={`http://localhost:8000/images/product/${product.productImage}`} />
             </Imagecontainer>
             <Brand>{product.productBrand}</Brand>
             <Name>{product.productName}</Name>
@@ -56,6 +56,7 @@ const Imagecontainer = styled.div`
 
 const Image = styled.img`
   height:300px;
+  width: 300px;
   border-radius: 15px;
   margin-bottom: 20px;
   &:hover {
