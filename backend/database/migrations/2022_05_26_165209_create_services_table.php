@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('furPetName', 50);
             $table->string('email');
             $table->integer('mobile');
-            $table->date('appointmentDate');
+            $table->string('appointmentDate');
             $table->time('appointmentTime');
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\services;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ServicesController extends Controller
 {
@@ -35,18 +36,37 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        $service = new services();
+        $validator  = Validator::make($request->all(), [
+            "serviceType" => 'required',
+            "email" => 'required|email|max:191',
+            "mobile" => 'required|max:8',
+            "appointmentDate" => 'required',
+            "appointmentTime" => 'required',
+        ]);
 
-        $service->userId = $request->input('userId');
-        $service->serviceType = $request->input('serviceType');
-        $service->furPetName = $request->input('furPetName');
-        $service->email = $request->input('email');
-        $service->mobile = $request->input('mobile');
-        $service->appointmentDate = $request->input('appointmentDate');
-        $service->appointmentTime = $request->input('appointmentTime');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Some fields are missing',
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
 
-        if($service->save()){
-            return $service;
+            $service = new services();
+
+            $service->userId = $request->input('userId');
+            $service->serviceType = $request->input('serviceType');
+            $service->furPetName = $request->input('furPetName');
+            $service->email = $request->input('email');
+            $service->mobile = $request->input('mobile');
+            $service->appointmentDate = $request->input('appointmentDate');
+            $service->appointmentTime = $request->input('appointmentTime');
+
+            $service->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Appointment Booked Successfully',
+            ]);
         }
     }
 
@@ -79,19 +99,38 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $service = services::find($request->id);
+        $validator  = Validator::make($request->all(), [
+            "serviceType" => 'required',
+            "email" => 'required|email|max:191',
+            "mobile" => 'required|max:8',
+            "appointmentDate" => 'required',
+            "appointmentTime" => 'required',
+        ]);
 
-        $service->serviceType = $request->input('serviceType');
-        $service->furPetName = $request->input('furPetName');
-        $service->email = $request->input('email');
-        $service->mobile = $request->input('mobile');
-        $service->appointmentDate = $request->input('appointmentDate');
-        $service->appointmentTime = $request->input('appointmentTime');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Some fields are missing',
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
 
-        if($service->save()){
-            return $service;
+            $service = services::find($id);
+
+            $service->serviceType = $request->input('serviceType');
+            $service->furPetName = $request->input('furPetName');
+            $service->email = $request->input('email');
+            $service->mobile = $request->input('mobile');
+            $service->appointmentDate = $request->input('appointmentDate');
+            $service->appointmentTime = $request->input('appointmentTime');
+
+            $service->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Appointment Updated Successfully',
+            ]);
         }
     }
 
@@ -101,12 +140,15 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $service = services::find($request->id);
+        $service = services::find($id);
 
-        if($service->delete()){
-            return $service;
+        if ($service->delete()) {
+            return response()->json([
+                'status' => 200,
+                'message' => 'Appointment Deleted Successfully',
+            ]);
         }
     }
 }

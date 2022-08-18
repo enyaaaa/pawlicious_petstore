@@ -8,6 +8,7 @@ import Login from './layouts/user/login';
 import Register from './layouts/user/register';
 import Profile from './layouts/user/profile';
 import Cart from './layouts/user/cart';
+import AddAppointment from './layouts/user/addappointment';
 
 import axios from 'axios'
 import RequireAuth from './components/RequireAuth';
@@ -19,7 +20,7 @@ import AddProduct from './layouts/admin/addproduct';
 import EditProduct from './layouts/admin/editproduct';
 import AdminOrders from './layouts/admin/orders';
 import AdminAppointments from './layouts/admin/appointments';
-import AddAppointment from './layouts/admin/addappointment';
+
 
 import { getProducts } from "./redux/actions/products";
 import store from './redux/store'
@@ -46,12 +47,13 @@ function App() {
       {/* main routes */}
       <Route path='/' element={<Home />} />
       <Route path='products/:type' element={<Products />} />
-      <Route path='product' element={<Product />} />
+      <Route path='product/:id' element={<Product />} />
       <Route path='login' element={<Login />} />
       <Route path='register' element={<Register />} />
       <Route path='services' element={<Services />} />
       <Route path='profile' element={<Profile />} />
       <Route path='cart' element={<Cart />} />
+      <Route path='addappointment' element={<AddAppointment />} />
 
       {/* admin routes */}
       <Route element={<RequireAuth />}>
@@ -63,7 +65,6 @@ function App() {
         <Route path='admin/editproduct/:id' element={<EditProduct />} />
         <Route path='admin/orders' element={<AdminOrders />} />
         <Route path='admin/appointments' element={<AdminAppointments />} />
-        <Route path='admin/addappointment' element={<AddAppointment />} />
       </Route>
     </Routes>
   );

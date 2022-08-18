@@ -35,23 +35,24 @@ Route::apiResource('users', UsersController::class);
 
 Route::apiResource('products', ProductsController::class);
 Route::get('products/{petType}', "App\Http\Controllers\ProductsController@show");
-Route::put('products', 'App\Http\Controllers\ProductsController@update');
-Route::delete('products/:id', 'App\Http\Controllers\ProductsController@destroy');
+Route::get('product/{id}', "App\Http\Controllers\ProductsController@getproduct");
+Route::post('updateproduct/{id}', 'App\Http\Controllers\ProductsController@update');
+Route::delete('products/{id}', 'App\Http\Controllers\ProductsController@destroy');
 
 Route::apiResource('recipes', RecipesController::class);
-Route::put('recipes', 'App\Http\Controllers\RecipesController@update');
+Route::post('updaterecipes', 'App\Http\Controllers\RecipesController@update');
 Route::delete('recipes', 'App\Http\Controllers\RecipesController@destroy');
 
 Route::apiResource('product_reviews', ProductReviewsController::class);
-Route::put('product_reviews', 'App\Http\Controllers\ProductReviewsController@update');
+Route::post('updateproduct_reviews', 'App\Http\Controllers\ProductReviewsController@update');
 Route::delete('product_reviews', 'App\Http\Controllers\ProductReviewsController@destroy');
 
 Route::apiResource('recipe_reviews', RecipeReviewsController::class);
-Route::put('recipe_reviews', 'App\Http\Controllers\RecipeReviewsController@update');
+Route::post('updaterecipe_reviews', 'App\Http\Controllers\RecipeReviewsController@update');
 Route::delete('recipe_reviews', 'App\Http\Controllers\RecipeReviewsController@destroy');
 
 Route::apiResource('services', ServicesController::class);
-Route::put('services', 'App\Http\Controllers\ServicesController@update');
+Route::post('updateservices/{id}', 'App\Http\Controllers\ServicesController@update');
 Route::delete('services', 'App\Http\Controllers\ServicesController@destroy');
 
 Route::apiResource('orders', OrdersController::class);

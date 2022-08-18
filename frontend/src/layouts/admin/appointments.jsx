@@ -57,7 +57,6 @@ const adminappointments = () => {
                 <Main>
                     <Header>
                         <Title>SERVICES</Title>
-                        <NavLink to='/admin/addappointment'>add appointment</NavLink>
                     </Header>
                     <div style={{ height: 579, width: '100%' }}>
                         <DataGrid

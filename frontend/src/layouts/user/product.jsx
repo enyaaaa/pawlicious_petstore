@@ -1,15 +1,42 @@
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
-
+import { useEffect, useState } from "react";
 import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
-import { useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { addProduct } from "../../redux/reducers/cartRedux";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 
 const product = () => {
 
+  const { id } = useParams();
   const location = useLocation();
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get(`api/products/${id}`).then(({ data }) => {
+      setProduct(data);
+    })
+  }, [])
+
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({ product, quantity, price: location.state.price * quantity })
+    );
+  };
 
   console.log(location.state);
   return (
@@ -18,7 +45,7 @@ const product = () => {
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src={`${location.state.productImage}`} />
+          <Image src={`http://localhost:8000/images/product/${location.state.productImage}`} />
         </ImgContainer>
         <InfoContainer>
           <Title>{location.state.productName}</Title>
@@ -26,15 +53,15 @@ const product = () => {
           <Price>${location.state.price}</Price>
           <AddContainer>
             <AmountContainer>
-              <Remove />
+              <Remove onClick={() => handleQuantity("dec")} />
               <Amount>1</Amount>
-              <Add />
+              <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
           </AddContainer>
-          <Button>ADD TO CART</Button>
+          <Button onClick={handleClick}>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
-      <Footer/>
+      <Footer />
     </Container>
   );
 };

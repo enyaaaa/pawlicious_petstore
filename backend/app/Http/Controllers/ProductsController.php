@@ -18,6 +18,23 @@ class ProductsController extends Controller
         return product::all();
     }
 
+    public function getproduct($id)
+    {
+        $products = product::find($id);
+        if ($products) {
+            return response()->json([
+                'status' => 200,
+                "product" => $products
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                "message" => 'No product found'
+            ]);
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -49,7 +66,7 @@ class ProductsController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 401,
+                'status' => 404,
                 'message' => 'Some fields are missing',
                 'validation_errors' => $validator->errors(),
             ]);
@@ -66,46 +83,18 @@ class ProductsController extends Controller
             $products->suitability = $request->input('suitability');
             $products->madeIn = $request->input('madeIn');
 
-            
+
             $product_name = time() . '.' . $request->productImage->extension();
             $request->productImage->move(public_path('/images/product'), $product_name);
 
             $products->productImage = $product_name;
 
-            /* if($request->hasFile('productImage')){
-                $file = $request->file('productImage');
-                $filename = time() . '.' . $request->productImage->extension();
-                $file->move(public_path('/uploads/product'), $filename);
-                return $products->productImage = $filename;
-            } */
-
-            /* $products-> productImage = $this->storeImage($request); */
-            
             $products->save();
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Added Successfully',
             ]);
         }
-    }
-
-
-    private function storeImage($request)
-    {
-        /* $newImageName = uniqid(). '-' . $request->title.'.'.$request->productImage->extension();
-
-        return $request->productImage->move(public_path('uploads\product'), $newImageName); */
-
-        if($request->hasFile('productImage')){
-            $file = $request->file('productImage');
-            $filename = time() . '.' . $request->productImage->extension();
-            return $file->move(public_path('/uploads/product'), $filename);
-        }
-
-        /* $file = $request->file('productImage');
-        $extension = $file->getClientOriginalExtension();
-        $filename = time() . '.' . $extension();
-        return $request->productImage->move(public_path('uploads\product'), $filename); */
     }
 
     /**
@@ -138,23 +127,61 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $products = product::find($request->id);
+        $validator  = Validator::make($request->all(), [
+            "petType" => 'required',
+            "productCategory" => 'required',
+            "productType" => 'required',
+            "productBrand" => 'required',
+            "productName" => 'required',
+            "price" => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            "suitability" => 'required',
+        ]);
 
-        $products->petType = $request->input('petType');
-        $products->productCategory = $request->input('productCategory');
-        $products->productType = $request->input('productType');
-        $products->productBrand = $request->input('productBrand');
-        $products->productName = $request->input('productName');
-        $products->productImage = $request->input('productImage');
-        $products->price = $request->input('price');
-        $products->description = $request->input('description');
-        $products->suitability = $request->input('suitability');
-        $products->madeIn = $request->input('madeIn');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Some fields are missing',
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $products = product::find($id);
 
-        if ($products->save()) {
-            return $products;
+            if ($products) {
+                $products->petType = $request->input('petType');
+                $products->productCategory = $request->input('productCategory');
+                $products->productType = $request->input('productType');
+                $products->productBrand = $request->input('productBrand');
+                $products->productName = $request->input('productName');
+                $products->price = $request->input('price');
+                $products->description = $request->input('description');
+                $products->suitability = $request->input('suitability');
+                $products->madeIn = $request->input('madeIn');
+
+
+                if ($product_name = $request->file('productImage')) {
+                    $product_name = time() . '.' . $request->productImage->extension();
+                    $request->productImage->move(public_path('/images/product'), $product_name);
+
+                    $products->productImage = $product_name;
+                } else {
+                    unset($products['productImage']);
+                }
+
+
+
+                $products->update();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Product Updated Successfully',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Product Not Found',
+                ]);
+            }
         }
     }
 
@@ -168,8 +195,17 @@ class ProductsController extends Controller
     {
         $products = product::find($id);
 
-        if ($products->delete()) {
-            return $products;
+        if ($products) {
+            $products->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Deleted Successfully',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => 'Product Not Found',
+            ]);
         }
     }
 }

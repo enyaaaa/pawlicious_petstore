@@ -1,16 +1,30 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/actions/products"
+import axios from "axios";
+import { addProduct } from "../../redux/reducers/cartRedux";
 
 const products = () => {
 
   const navigate = useNavigate();
   const products = useSelector((state) => state.products.products);
+  const { petType } = useParams();
+  const dispatch = useDispatch();
+
+  const fetchProducts = () => {
+    axios.get(`api/products/${petType}`).then(({ data }) => {
+      dispatch(getProducts(data));
+    })
+  }
+  useEffect(() => {
+    fetchProducts();
+  }, [])
 
   const goToProduct = (product) => {
     console.log(product);
-    navigate("/product", { state: product });
+    navigate("/product/" + product.id, { state: product });
   }
 
   return (
@@ -56,7 +70,7 @@ const Imagecontainer = styled.div`
 
 const Image = styled.img`
   height:300px;
-  width: 300px;
+  width: 250px;
   border-radius: 15px;
   margin-bottom: 20px;
   &:hover {

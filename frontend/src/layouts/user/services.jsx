@@ -19,21 +19,21 @@ const services = () => {
             <Image src="https://cdn.shopify.com/s/files/1/0508/4767/8644/articles/how-to-plan-an-epic-doggy-playdate_1138x.jpg?v=1637914006" />
             <Info>
               <Title>Services for Dogs</Title>
-              <NavLink to='/products'>BOOK NOW</NavLink>
+              <NavLink to='/addappointment'>BOOK NOW</NavLink>
             </Info>
           </Container>
           <Container>
             <Image src="https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg" />
             <Info>
               <Title>Services for Cats</Title>
-              <NavLink to='/products'>BOOK NOW</NavLink>
+              <NavLink to='/addappointment'>BOOK NOW</NavLink>
             </Info>
           </Container>
           <Container>
             <Image src="https://media.npr.org/assets/img/2017/09/14/gettyimages-10141026_slide-67be9fc1bca330b26debade87690b5e84286614d-s1100-c50.jpg" />
             <Info>
               <Title>Services for Small Pets</Title>
-              <NavLink to='/products'>BOOK NOW</NavLink>
+              <NavLink to='/addappointment'>BOOK NOW</NavLink>
             </Info>
           </Container>
         </Wrapped>

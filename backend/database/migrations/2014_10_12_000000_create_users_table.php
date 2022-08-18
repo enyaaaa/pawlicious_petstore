@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('mobile')->unique()->nullable();
+            $table->integer('mobile')->unique();
             $table->string('profilePic') ->nullable() -> default("https://i.pinimg.com/280x280_RS/2e/45/66/2e4566fd829bcf9eb11ccdb5f252b02f.jpg");
             $table->integer('roles')->default(2001);
             $table->timestamps();

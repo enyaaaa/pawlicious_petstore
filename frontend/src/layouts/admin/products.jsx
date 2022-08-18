@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 import axios from "axios";
+import swal from "sweetalert";
 
 const adminProducts = () => {
     
@@ -17,6 +18,23 @@ const adminProducts = () => {
             setProducts(data);
         })
     },[])
+
+    const handleDelete = (e, id) => {
+        e.preventDefault();
+        const thisClicked = id.currentTarget;
+
+        axios.delete(`/api/products/${id}`).then(res => {
+            if (res.data.status === 200)
+            {
+                swal("Success", res.data.message, "success");
+                thisClicked.closest('roles').remove();
+            }
+            else if (res.data.statud === 404){
+                swal("Error", res.data.message, "error");
+            }
+        })
+        
+    }
     
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -31,9 +49,10 @@ const adminProducts = () => {
             },
         },
         { field: 'productBrand', headerName: 'Brand', width: 90 },
-        { field: 'productName', headerName: 'Name', width: 200 },
+        { field: 'productName', headerName: 'Name', width: 190 },
         { field: 'price', headerName: 'Price', width: 90 },
         { field: 'description', headerName: 'Description', width: 100 },
+        { field: 'suitability', headerName: 'Suitability', width: 90 },
         { field: 'madeIn', headerName: 'Made In', width: 90 },
         {
             field: "action",
@@ -46,8 +65,7 @@ const adminProducts = () => {
                             <Edit>Edit</Edit>
                         </Link>
                         <DeleteOutline
-                            className="productListDelete"
-                            onClick={() => handleDelete(params.row.id)}
+                            onClick={(e) => handleDelete(e, params.row.id)}
                         />
                     </>
                 );

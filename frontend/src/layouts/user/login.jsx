@@ -40,6 +40,9 @@ const login = () => {
       axios.post(`api/login`, data).then(res => {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
+          localStorage.setItem('userid', res.data.userid);
+          localStorage.setItem('email', res.data.email);
+          localStorage.setItem('mobile', res.data.mobile);
           localStorage.setItem('auth_username', res.data.username);
           localStorage.setItem('roles', res.data.roles);
           const token = res?.data?.token;
@@ -49,7 +52,7 @@ const login = () => {
           swal('Success', res.data.message, "success");
           navigate(from, { replace: true });
 
-        } else if (res.data.status === 401) {
+        } else if (res.data.status === 404) {
           swal('Warning', res.data.message, "warning")
 
         } else {
@@ -95,9 +98,11 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 400px;
+  width: 450px;
   padding: 20px;
-  background-color: white;
+  background-color: rgba(255,255,255,.7);
+  border-radius: 20px;
+  padding: 40px;
 `;
 
 const Title = styled.h1`

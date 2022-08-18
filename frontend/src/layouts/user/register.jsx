@@ -14,6 +14,7 @@ const register = () => {
   const [registerInput, setRegister] = useState({
     username: '',
     email: '',
+    mobile: '',
     password: '',
     confirmpassword: '',
     error_list: [],
@@ -30,6 +31,7 @@ const register = () => {
     const data = {
       username: registerInput.username,
       email: registerInput.email,
+      mobile: registerInput.mobile,
       password: registerInput.password,
       confirmpassword: registerInput.confirmpassword,
     }
@@ -59,6 +61,8 @@ const register = () => {
             <Validation>{registerInput.error_list.username}</Validation>
             <Input type="text" name="email" placeholder="email" onChange={handleInput} value={registerInput.email} />
             <Validation>{registerInput.error_list.email}</Validation>
+            <Input type="tel" name="mobile" placeholder="mobile" onChange={handleInput} value={registerInput.mobile} />
+            <Validation>{registerInput.error_list.mobile}</Validation>
             <Input type="password" name="password" placeholder="password" onChange={handleInput} value={registerInput.password} />
             <Validation>{registerInput.error_list.password}</Validation>
             <Input type="password" name="confirmpassword" placeholder="confirm password" onChange={handleInput} value={registerInput.confirmpassword} />
@@ -74,7 +78,7 @@ const register = () => {
 
 const Container = styled.div`
   width: 100%;
-  height: 90vh;
+  height: 88vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)), url("https://wichitamom.com/wp-content/uploads/2022/02/veterinarian-in-Wichita.png") center;
@@ -87,7 +91,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 400px;
   padding: 20px;
-  background-color: white;
+  background-color: rgba(255,255,255,.7);
+  border-radius: 20px;
+  padding: 40px;
 `;
 
 const Title = styled.h1`

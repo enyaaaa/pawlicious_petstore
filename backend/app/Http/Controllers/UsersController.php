@@ -14,14 +14,15 @@ class UsersController extends Controller
     {
 
         $validator  = Validator::make($request->all(), [
-            "username" => 'required|max:191',
+            "username" => 'required|max:191|unique:users,username',
             "email" => 'required|email|max:191|unique:users,email',
+            "mobile" => 'required|max:8',
             "password" => 'required|min:8',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 401,
+                'status' => 404,
                 'validation_errors' => $validator->errors(),
             ]);
         } else {
@@ -39,6 +40,7 @@ class UsersController extends Controller
                 'status' => 200,
                 'username' => $user->username,
                 'token' => $token,
+                'mobile' => $user->mobile,
                 'message' => 'Registered Successfully'
             ]);
         }
@@ -59,7 +61,7 @@ class UsersController extends Controller
 
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
-                    'status' => 401,
+                    'status' => 404,
                     'message' => 'Invalid',
                 ]);
             } else {
@@ -70,6 +72,9 @@ class UsersController extends Controller
                     'username' => $user->username,
                     'token' => $token,
                     'roles' => $user->roles,
+                    'userid' => $user->id,
+                    'email' => $user->email,
+                    'mobile' => $user->mobile,
                     'message' => 'Logged in Successfully'
                 ]);
             }

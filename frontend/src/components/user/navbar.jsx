@@ -5,6 +5,7 @@ import styled from "styled-components";
 import logo from '../../assets/user/img/pets.png';
 import { NavLink as Link } from 'react-router-dom';
 import { mobile } from "../../responsive";
+import { useSelector } from "react-redux";
 
 const navbar = () => {
 
@@ -20,6 +21,7 @@ const navbar = () => {
   }
 
   var Cart = '';
+  const quantity = useSelector(state=>state.cart.quantity)
   if (!localStorage.getItem('auth_token')) {
     Cart = (
       <NavLink to='/login'>
@@ -29,7 +31,7 @@ const navbar = () => {
   } else {
     Cart = (
       <NavLink to='/cart'>
-        <Badge badgeContent={4} color="primary" overlap="rectangular">
+        <Badge badgeContent={quantity} color="primary" overlap="rectangular">
           <LocalMallOutlined />
         </Badge>
       </NavLink>
