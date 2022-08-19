@@ -8,8 +8,6 @@ import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
 
-
-
 const login = () => {
 
   const { setAuth } = useAuth();
@@ -55,7 +53,6 @@ const login = () => {
           } else {
             navigate(from, { replace: true });
           }
-          
 
         } else if (res.data.status === 404) {
           swal('Warning', res.data.message, "warning")

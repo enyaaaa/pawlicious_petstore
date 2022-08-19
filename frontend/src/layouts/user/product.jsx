@@ -5,40 +5,17 @@ import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
 import { useParams, useLocation } from "react-router-dom";
-import { addProduct } from "../../redux/cartRedux";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 
 
 const product = () => {
 
+  //using params to find id
   const { id } = useParams();
+
+  //use location to find state
   const location = useLocation();
-  const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios.get(`api/product/${id}`).then(({ data }) => {
-      setProduct(data);
-    })
-  }, [setProduct])
-
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const handleClick = () => {
-    dispatch(
-      addProduct({ product: location.state, quantity, price: location.state.price * quantity })
-    );
-  };
-
-  console.log(location.state);
   return (
     <Container>
       <Announcement />
@@ -54,11 +31,11 @@ const product = () => {
           <AddContainer>
             <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>{quantity}</Amount>
+              <Amount>{1}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
           </AddContainer>
-          <Button onClick={handleClick}>ADD TO CART</Button>
+          <Button>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
       <Footer />
@@ -127,12 +104,12 @@ const Amount = styled.span`
 `;
 
 const Button = styled.button`
-    margin-top: 10px;
-    padding: 8px;
-    background-color: #d6b0a6;
-    color: white;
-    border: none;
-    border-radius:10px;
+  margin-top: 10px;
+  padding: 8px;
+  background-color: #d6b0a6;
+  color: white;
+  border: none;
+  border-radius:10px;
 `;
 
 export default product;

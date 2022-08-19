@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
 import axios from "axios";
 
 const products = () => {
 
+  //navigate to another route
   const navigate = useNavigate();
 
+  //using the type that the user has clicked
   const { type } = useParams();
 
+  //set products
   const [products, setProducts] = useState([]);
 
+  //getting products from api
   useEffect(() => {
     axios.get(`api/products/${type}`).then(({ data }) => {
       setProducts(data);
     })
   }, [type])
 
+  //going in to view more details of product
   const goToProduct = (product) => {
     console.log(product);
     navigate(`/product/${type}/` + product.id, { state: product });

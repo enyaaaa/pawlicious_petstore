@@ -7,16 +7,20 @@ import axios from 'axios';
 
 const addproduct = () => {
 
+    //using state
     const [img, setImg] = useState();
     const [error_list, setError] = useState([]);
 
+    //navigate user to another route
     const navigate = useNavigate();
 
+    //inserting image
     function onImageChange(e) {
         console.log(e.target.files);
         setImg(e.target.files[0])
     }
 
+    //input of forms
     const [formData, setFormData] = useState(
         {
             petType: "",
@@ -32,11 +36,13 @@ const addproduct = () => {
         []
     );
 
+    //handling the users input
     const handleInput = (e) => {
         e.persist();
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
+    //function when user submit the form and add it into database
     const productSubmit = (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -280,7 +286,5 @@ const Button = styled.button`
 const Flex = styled.div`
     display:flex;
 `;
-
-
 
 export default addproduct;

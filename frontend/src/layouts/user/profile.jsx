@@ -12,50 +12,48 @@ import Footer from '../../components/user/footer';
 
 const profile = () => {
 
-    const navigate = useNavigate();
-    const logoutSubmit = (e) => {
-        e.preventDefault();
+  // navigate users to another route
+  const navigate = useNavigate();
 
-        axios.post(`/api/logout`).then(res => {
-            if (res.data.status === 200) {
-                localStorage.removeItem('auth_token');
-                localStorage.removeItem('auth_username');
-                localStorage.removeItem('userid');
-                localStorage.removeItem('email');
-                localStorage.removeItem('mobile');
-                localStorage.removeItem('roles');
-                swal('Success', res.data.message, "success");
-                navigate("/", { replace: true });
-            }
-        });
-    }
+  //function when user click on logout
+  const logoutSubmit = (e) => {
+    e.preventDefault();
 
-    return (
-        <div>
-            <Announcement />
-            <Navbar />
-            <Container>
-                <Wrapper>
-                    <Title>Profile</Title>
-                        <Item>
-                            <Label>Mobile</Label>
-                            
-                           
-                        </Item>
-                        <Item>
-                            <Label>Email</Label>
-                            
-                            
-                        </Item>
-                   
-                    <Title>
-                    <Button type='submit' onClick={logoutSubmit}>LOGOUT</Button>
-                    </Title>
-                </Wrapper>
-            </Container>
-            <Footer />
-        </div>
-    )
+    axios.post(`/api/logout`).then(res => {
+      if (res.data.status === 200) {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_username');
+        localStorage.removeItem('userid');
+        localStorage.removeItem('email');
+        localStorage.removeItem('mobile');
+        localStorage.removeItem('roles');
+        swal('Success', res.data.message, "success");
+        navigate("/", { replace: true });
+      }
+    });
+  }
+
+  return (
+    <div>
+      <Announcement />
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>Profile</Title>
+          <Item>
+            <Label>Mobile</Label>
+          </Item>
+          <Item>
+            <Label>Email</Label>
+          </Item>
+          <Title>
+            <Button type='submit' onClick={logoutSubmit}>LOGOUT</Button>
+          </Title>
+        </Wrapper>
+      </Container>
+      <Footer />
+    </div>
+  )
 }
 
 const Container = styled.div`

@@ -14,7 +14,7 @@ const Container = styled.div`
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
-  ${mobile({ fontSize: "10px"})}
+  ${mobile({ fontSize: "10px" })}
 `;
 
 export default announcement;

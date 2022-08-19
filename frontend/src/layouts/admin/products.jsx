@@ -10,32 +10,35 @@ import axios from "axios";
 import swal from "sweetalert";
 
 const adminProducts = () => {
-    
+
+    //using state
     const [products, setProducts] = useState([]);
 
+    //getting products from database
     useEffect(() => {
         axios.get(`api/products`).then(({ data }) => {
             setProducts(data);
         })
-    },[setProducts])
+    }, [setProducts])
 
+    //function when user press on delete
     const handleDelete = (e, id) => {
         e.preventDefault();
         const thisClicked = id.currentTarget;
 
         axios.delete(`/api/products/${id}`).then(res => {
-            if (res.data.status === 200)
-            {
+            if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
                 thisClicked.closest('roles').remove();
             }
-            else if (res.data.status === 404){
+            else if (res.data.status === 404) {
                 swal("Error", res.data.message, "error");
             }
         })
-        
+
     }
-    
+
+    //column fields
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'petType', headerName: 'Pet Type', width: 90 },
@@ -118,8 +121,8 @@ const Main = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const Title = styled.h1`

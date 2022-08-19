@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-import { NotificationsNoneOutlined, PersonOutline, SearchRounded} from "@material-ui/icons";
+import { NotificationsNoneOutlined, PersonOutline, SearchRounded } from "@material-ui/icons";
 
 const Navbar = () => {
     return (
         <Container>
             <Wrapper>
                 <Search>
-                    <Icon><SearchRounded/></Icon>
+                    <Icon><SearchRounded /></Icon>
                     <Input type="text" placeholder="Search..." />
                 </Search>
                 <Item>
-                    <Icon><NotificationsNoneOutlined/></Icon>
-                    <Icon><PersonOutline/></Icon>
+                    <Icon><NotificationsNoneOutlined /></Icon>
+                    <Icon><PersonOutline /></Icon>
                 </Item>
             </Wrapper>
         </Container>
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 `;
 
 const Icon = styled.div`
-  margin-right: 10px;
+    margin-right: 10px;
 `;
 
 const Search = styled.div`

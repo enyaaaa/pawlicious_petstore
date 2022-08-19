@@ -10,7 +10,10 @@ import Footer from '../../components/user/footer';
 
 const register = () => {
 
+  //navigate user to another page
   const navigate = useNavigate();
+
+  //input field for form
   const [registerInput, setRegister] = useState({
     username: '',
     email: '',
@@ -20,11 +23,13 @@ const register = () => {
     error_list: [],
   });
 
+  //handing users input
   const handleInput = (e) => {
     e.persist();
     setRegister({ ...registerInput, [e.target.name]: e.target.value })
   }
 
+  //function when users submit the form and add it into datebase
   const registerSubmit = (e) => {
     e.preventDefault();
 
@@ -114,8 +119,8 @@ const Input = styled.input`
 `;
 
 const Validation = styled.span`
-font-size: 12px;
-color: #b5968d;
+  font-size: 12px;
+  color: #b5968d;
 `;
 
 const Button = styled.button`

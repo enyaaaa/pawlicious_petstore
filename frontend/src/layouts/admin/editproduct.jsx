@@ -9,18 +9,23 @@ import swal from 'sweetalert';
 
 const editproduct = () => {
 
+    //using states
     const [img, setImg] = useState();
     const [error_list, setError] = useState([]);
 
+    //using params to find the id
     const { id } = useParams();
 
+    //navigate users to a different route
     const navigate = useNavigate();
 
+    //getting users image input
     function onImageChange(e) {
         console.log(e.target.files);
         setImg(e.target.files[0])
     }
 
+    //input of forms
     const [formData, setFormData] = useState(
         {
             petType: "",
@@ -36,11 +41,13 @@ const editproduct = () => {
         []
     );
 
+    //handle users input
     const handleInput = (e) => {
         e.persist();
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
+    //getting product id data
     useEffect(() => {
         axios.get(`api/product/${id}`).then(res => {
             if (res.data.status === 200) {
@@ -53,6 +60,7 @@ const editproduct = () => {
         });
     }, [id]);
 
+    //function when user press on the submit button and edit the product and update on database
     const productUpdate = (e) => {
 
         e.preventDefault();
@@ -250,8 +258,8 @@ const Input = styled.input`
 `;
 
 const Validation = styled.span`
-font-size: 12px;
-color: #b5968d;
+    font-size: 12px;
+    color: #b5968d;
 `;
 
 const Textarea = styled.textarea`

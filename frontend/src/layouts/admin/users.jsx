@@ -10,14 +10,17 @@ import Sidebar from "../../components/admin/sidebar";
 
 const adminUsers = () => {
 
+    //using state
     const [users, setUsers] = useState([]);
 
+    //getting all users from datebase
     useEffect(() => {
         axios.get(`api/users`).then(({ data }) => {
             setUsers(data);
         })
     }, [setUsers])
 
+    //column fields 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         {

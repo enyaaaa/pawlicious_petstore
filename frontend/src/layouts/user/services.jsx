@@ -9,6 +9,7 @@ import Footer from '../../components/user/footer';
 
 const services = () => {
 
+  //when user is not login they will be redirected to the login page else it will send user to add appointment
   var Booking = '';
   if (!localStorage.getItem('auth_token')) {
     Booking = (

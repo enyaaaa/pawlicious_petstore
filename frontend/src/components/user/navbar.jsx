@@ -1,14 +1,13 @@
 import { Badge } from "@material-ui/core";
 import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined } from "@material-ui/icons";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import logo from '../../assets/user/img/pets.png';
 import { NavLink as Link } from 'react-router-dom';
 import { mobile } from "../../responsive";
-import { useSelector } from "react-redux";
-
 const navbar = () => {
 
+  //if user is not logged in it will relocate the user to login page else it will go to the profile page
   var Profile = '';
   if (!localStorage.getItem('auth_token')) {
     Profile = (
@@ -20,18 +19,18 @@ const navbar = () => {
     );
   }
 
+  //if user is not logged in it will relocate the user to login page else it will go to the cart page
   var Cart = '';
-  const quantity = useSelector(state=>state.cart.quantity)
   if (!localStorage.getItem('auth_token')) {
     Cart = (
       <NavLink to='/login'>
-          <LocalMallOutlined />
+        <LocalMallOutlined />
       </NavLink>
     );
   } else {
     Cart = (
       <NavLink to='/cart'>
-        <Badge badgeContent={quantity} color="primary" overlap="rectangular">
+        <Badge badgeContent={1} color="primary" overlap="rectangular">
           <LocalMallOutlined />
         </Badge>
       </NavLink>

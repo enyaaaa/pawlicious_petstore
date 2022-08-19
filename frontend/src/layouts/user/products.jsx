@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 
 const products = () => {
 
+  //using params to find type
   const { type } = useParams();
 
   return (

@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Carousel } from 'react-bootstrap';
 import { NavLink as Link } from 'react-router-dom';
 
-
-
 const slider = () => {
     return (
         <Carousel>
@@ -19,7 +17,7 @@ const slider = () => {
                     <p>Explore an extended range of cat care and gromming products!</p>
                     <NavLink to='/products/Cat'>View More</NavLink>
                 </Carousel.Caption>
-                
+
             </Carousel.Item>
             <Carousel.Item interval={2000}>
                 <img

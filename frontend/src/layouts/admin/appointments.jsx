@@ -10,14 +10,17 @@ import Sidebar from "../../components/admin/sidebar";
 
 const adminappointments = () => {
 
+    // using states
     const [services, setServices] = useState([]);
 
+    //getting data from api
     useEffect(() => {
         axios.get(`api/services`).then(({ data }) => {
             setServices(data);
         })
     }, [setServices])
 
+    //column fields for appointments
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'serviceType', headerName: 'Service Type', width: 110 },
@@ -90,31 +93,13 @@ const Main = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const Title = styled.h1`
     font-size: 24px;
     font-weight: 400;
-`;
-
-const NavLink = styled(Link)`
-    font-size: 20px;
-    color: black;
-    cursor: pointer;
-    border-radius: 20px;
-    border: none;
-    text-decoration: none;
-    &:hover {
-    color: #d6b0a6;
-`;
-
-const Image = styled.img`
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    align-items: center;
 `;
 
 const Edit = styled.button`
@@ -126,7 +111,5 @@ const Edit = styled.button`
     cursor: pointer;
     margin-right: 20px;
 `;
-
-
 
 export default adminappointments;

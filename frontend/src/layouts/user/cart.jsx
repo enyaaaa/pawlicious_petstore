@@ -8,7 +8,6 @@ import { mobile } from "../../responsive";
 import { useSelector } from "react-redux";
 import StripeCheckout from 'react-stripe-checkout';
 
-import logo from '../../assets/user/img/pets.png';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

@@ -10,14 +10,17 @@ import Sidebar from "../../components/admin/sidebar";
 
 const adminorders = () => {
 
+    //using state
     const [orders, setOrders] = useState([]);
 
+    //getting all orders that users has made
     useEffect(() => {
         axios.get(`api/orders`).then(({ data }) => {
             setOrders(data);
         })
     }, [setOrders])
 
+    //columns fieldsof orders
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'petType', headerName: 'Pet Type', width: 90 },

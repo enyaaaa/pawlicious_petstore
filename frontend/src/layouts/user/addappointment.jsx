@@ -12,11 +12,14 @@ import Footer from '../../components/user/footer';
 
 const addappointment = () => {
 
+    //using state
     const [date, setDate] = useState()
     const [error_list, setError] = useState([]);
 
+    //navigate users to a different route
     const navigate = useNavigate();
 
+    //input fields
     const [formData, setFormData] = useState(
         {
             serviceType: "",
@@ -31,11 +34,13 @@ const addappointment = () => {
         []
     );
 
+    //handing users input
     const handleInput = (e) => {
         e.persist();
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
+    //function when users book appointment and store it into database
     const appointmentSubmit = (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -159,57 +164,57 @@ const addappointment = () => {
 }
 
 const Container = styled.div`
-  height: 88vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)), url("https://wichitamom.com/wp-content/uploads/2022/02/veterinarian-in-Wichita.png") center;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 88vh;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)), url("https://wichitamom.com/wp-content/uploads/2022/02/veterinarian-in-Wichita.png") center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   
 `;
 
 const Wrapper = styled.div`
-  width: 90%;
-  background-color: rgba(255,255,255,.7);
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  padding: 40px;
+    width: 90%;
+    background-color: rgba(255,255,255,.7);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 40px;
 
 `;
 
 const Title = styled.h1`
-text-align: center;
-  font-size: 24px;
-  font-weight: 400;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 400;
 `;
 
 const Form = styled.form`
-margin-left:30px;
-display: flex;
-flex-wrap: wrap;
+    margin-left:30px;
+    display: flex;
+    flex-wrap: wrap;
 `;
 
 const Item = styled.div`
-width: 600px;
-display: flex;
-flex-direction: column;
-margin-top: 10px;
-margin-right: 20px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 20px;
 `;
 
 const Label = styled.div`
-margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgb(151, 150, 150);
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(151, 150, 150);
 `;
 
 const Input = styled.input`
-  min-width: 100%;
-  padding: 10px;
+    min-width: 100%;
+    padding: 10px;
 `;
 
 const Validation = styled.span`
@@ -218,23 +223,21 @@ const Validation = styled.span`
 `;
 
 const Select = styled.select`
-  padding: 12px;
+    padding: 12px;
 `;
 
 const Button = styled.button`
-align-items: center;
-margin-top: 30px;
-width: 100px;
-height: 50px;
-padding: 10px;
-font-size: 20px;
-background-color: #d6b0a6;
-cursor: pointer;
-border-radius: 20px;
-border: none;
-text-decoration: none;
+    align-items: center;
+    margin-top: 30px;
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #d6b0a6;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
 `;
-
-
 
 export default addappointment;

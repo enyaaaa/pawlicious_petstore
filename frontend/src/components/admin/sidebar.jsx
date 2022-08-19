@@ -6,24 +6,26 @@ import axios from "axios";
 
 const Sidebar = () => {
 
+  //navigate user to another route
   const navigate = useNavigate();
 
+  //logout function when user click on logout
   const logoutSubmit = (e) => {
     e.preventDefault();
 
     axios.post(`/api/logout`).then(res => {
-        if (res.data.status === 200) {
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('auth_username');
-            localStorage.removeItem('userid');
-            localStorage.removeItem('email');
-            localStorage.removeItem('mobile');
-            localStorage.removeItem('roles');
-            swal('Success', res.data.message, "success");
-            navigate("/", { replace: true });
-        }
+      if (res.data.status === 200) {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_username');
+        localStorage.removeItem('userid');
+        localStorage.removeItem('email');
+        localStorage.removeItem('mobile');
+        localStorage.removeItem('roles');
+        swal('Success', res.data.message, "success");
+        navigate("/", { replace: true });
+      }
     });
-}
+  }
 
   return (
     <div>
