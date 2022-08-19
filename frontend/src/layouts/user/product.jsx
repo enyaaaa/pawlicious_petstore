@@ -1,6 +1,6 @@
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
@@ -10,11 +10,50 @@ import axios from "axios";
 
 const product = () => {
 
-  //using params to find id
-  const { id } = useParams();
-
   //use location to find state
   const location = useLocation();
+
+  const {id} = useParams();
+
+  //using state
+  const [quantity, setQuantity] = useState(1);
+
+  //handling decrement
+  const handleDecrement = () => {
+    if(quantity > 1){
+      setQuantity(prevCount => prevCount - 1)
+    }
+  }
+
+  //handling increment
+  const handleIncrement = () => {
+    if(quantity < 10){
+      setQuantity(prevCount => prevCount + 1)
+    }
+  }
+
+  const submitAddToCart = (e) => {
+    e.preventDefault();
+
+    const data = {
+      productId: id, 
+      productQty: quantity
+    }
+
+    axios.post(`/api/addtocart`, data).then(res => {
+      if (res.data.status == 201){
+        swal('Success', res.data.message, 'success');
+      } else if (res.data.status === 409){
+        //already added to cart
+        swal('Success', res.data.message, 'success');
+      } else if (res.data.status === 401){
+        swal('Error', res.data.message, 'error');
+      } else if (res.data.status === 404){
+        swal('Warning', res.data.message, 'warning');
+      }
+    })
+  }
+
 
   return (
     <Container>
@@ -30,12 +69,12 @@ const product = () => {
           <Price>${location.state.price}</Price>
           <AddContainer>
             <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>{1}</Amount>
-              <Add onClick={() => handleQuantity("inc")} />
+              <Remove onClick={handleDecrement} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={handleIncrement} />
             </AmountContainer>
           </AddContainer>
-          <Button>ADD TO CART</Button>
+          <Button onClick={submitAddToCart}>ADD TO CART</Button>
         </InfoContainer>
       </Wrapper>
       <Footer />

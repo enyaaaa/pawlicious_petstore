@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductReviewsController;
 use App\Http\Controllers\RecipeReviewsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UsersController;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,12 @@ Route::delete('recipe_reviews', 'App\Http\Controllers\RecipeReviewsController@de
 Route::apiResource('services', ServicesController::class);
 Route::post('updateservices/{id}', 'App\Http\Controllers\ServicesController@update');
 Route::delete('services', 'App\Http\Controllers\ServicesController@destroy');
+
+Route::apiResource('addtocart', CartController::class);
+Route::post('addtocart', 'App\Http\Controllers\CartController@addtocart');
+Route::get('cart', 'App\Http\Controllers\CartController@viewcart');
+Route::put('cartUpdateQty/{cardId}/{scope}','App\Http\Controllers\CartController@updateQty');
+Route::delete('deletecartitem/{cardId}','App\Http\Controllers\CartController@delete');
 
 Route::apiResource('orders', OrdersController::class);
 Route::delete('orders', 'App\Http\Controllers\OrdersController@destroy');
