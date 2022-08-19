@@ -1,30 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../redux/actions/products"
+import { useDispatch, useSelector } from "react-redux"
 import axios from "axios";
-import { addProduct } from "../../redux/reducers/cartRedux";
 
 const products = () => {
 
   const navigate = useNavigate();
-  const products = useSelector((state) => state.products.products);
-  const { petType } = useParams();
-  const dispatch = useDispatch();
 
-  const fetchProducts = () => {
-    axios.get(`api/products/${petType}`).then(({ data }) => {
-      dispatch(getProducts(data));
-    })
-  }
+  const { type } = useParams();
+
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    fetchProducts();
-  }, [])
+    axios.get(`api/products/${type}`).then(({ data }) => {
+      setProducts(data);
+    })
+  }, [type])
 
   const goToProduct = (product) => {
     console.log(product);
-    navigate("/product/" + product.id, { state: product });
+    navigate(`/product/${type}/` + product.id, { state: product });
   }
 
   return (

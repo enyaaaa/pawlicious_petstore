@@ -20,9 +20,12 @@ const addappointment = () => {
     const [formData, setFormData] = useState(
         {
             serviceType: "",
+            petType: "",
+            breed: "",
             furPetName: "",
             email: "",
             mobile: "",
+            appointmentDate: "",
             appointmentTime: "",
         },
         []
@@ -38,6 +41,8 @@ const addappointment = () => {
         const data = new FormData();
         data.append('userId', localStorage.getItem('userid'));
         data.append('serviceType', formData.serviceType);
+        data.append('petType', formData.petType);
+        data.append('breed', formData.breed);
         data.append('furPetName', formData.furPetName);
         data.append('email', localStorage.getItem('email'));
         data.append('mobile', localStorage.getItem('mobile'));
@@ -51,6 +56,8 @@ const addappointment = () => {
                     ...formData,
                     userId: localStorage.getItem('userid'),
                     serviceType: "",
+                    petType: "",
+                    breed: "",
                     email: localStorage.getItem('email'),
                     mobile: localStorage.getItem('mobile'),
                     appointmentDate: "",
@@ -72,21 +79,37 @@ const addappointment = () => {
             <Container>
                 <Wrapper>
                     <Title>ADD APPOINTMENT</Title>
-                    <Form onSubmit={appointmentSubmit} >
+                    <Form>
                         <Item>
                             <Label>Service Type</Label>
                             <Select name="serviceType" id="serviceType" value={formData.serviceType} onChange={handleInput}>
                                 <option value="---">---</option>
-                                <option value="Dog">Dog</option>
-                                <option value="Cat">Cat</option>
+                                <option value="Grooming">Grooming</option>
+                                <option value="Bath">Bath</option>
+                                <option value="Treatments">Treatments</option>
                             </Select>
                             <Validation>{error_list.serviceType}</Validation>
                         </Item>
                         <Item>
+                            <Label>Pet Type</Label>
+                            <Select name="petType" id="petType" value={formData.petType} onChange={handleInput}>
+                                <option value="---">---</option>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                                <option value="Small Pets">Small Pets</option>
+                            </Select>
+                            <Validation>{error_list.petType}</Validation>
+                        </Item>
+                        <Item>
+                            <Label>Breed</Label>
+                            <Input type="text" placeholder="Breed" name="breed" id="breed" value={formData.breed} onChange={handleInput}/>
+                            <Validation>{error_list.breed}</Validation>
+                        </Item>
+                        <Item>
                             <Label>Appointment Date</Label>
-                            <DatePicker date={date} onDateChange={setDate} locale={enGB} name="appointmentDate" id="appointmentDate" value={date} onChange={handleInput}>
+                            <DatePicker onDateChange={setDate} date={date} locale={enGB}  >
                                 {({ inputProps, focused }) => (
-                                    <Input
+                                    <Input name="appointmentDate" value={date} 
                                         className={'input' + (focused ? ' -focused' : '')}
                                         {...inputProps}
                                     />
@@ -114,7 +137,7 @@ const addappointment = () => {
                                 <option value="4:30">4:30pm</option>
                                 <option value="5:00">5:00pm</option>
                             </Select>
-                            <Validation>{error_list.appointmentDate}</Validation>
+                            <Validation>{error_list.appointmentTime}</Validation>
                         </Item>
                         <Item>
                             <Label>Mobile</Label>
@@ -127,9 +150,7 @@ const addappointment = () => {
                             <Validation>{error_list.email}</Validation>
                         </Item>
                     </Form>
-                    <Title>
-                        <Button type="submit">ADD</Button>
-                    </Title>
+                    <Button onClick={appointmentSubmit}>ADD</Button>
                 </Wrapper>
             </Container>
             <Footer />
@@ -212,9 +233,6 @@ cursor: pointer;
 border-radius: 20px;
 border: none;
 text-decoration: none;
-&:hover {
-  color: #000;
-}
 `;
 
 

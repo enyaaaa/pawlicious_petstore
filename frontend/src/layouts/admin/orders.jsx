@@ -16,7 +16,7 @@ const adminorders = () => {
         axios.get(`api/orders`).then(({ data }) => {
             setOrders(data);
         })
-    })
+    }, [setOrders])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },

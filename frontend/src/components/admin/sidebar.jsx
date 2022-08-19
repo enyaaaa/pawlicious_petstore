@@ -1,9 +1,30 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link, useNavigate } from 'react-router-dom';
 import { AccountCircleOutlined, CreditCardRounded, DashboardRounded, StoreRounded, PersonOutlineRounded, ExitToAppRounded, AccessAlarmOutlined } from "@material-ui/icons";
+import axios from "axios";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+  const logoutSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post(`/api/logout`).then(res => {
+        if (res.data.status === 200) {
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('auth_username');
+            localStorage.removeItem('userid');
+            localStorage.removeItem('email');
+            localStorage.removeItem('mobile');
+            localStorage.removeItem('roles');
+            swal('Success', res.data.message, "success");
+            navigate("/", { replace: true });
+        }
+    });
+}
+
   return (
     <div>
       <Top>
@@ -37,7 +58,7 @@ const Sidebar = () => {
           <Icon><AccountCircleOutlined /></Icon>
           Profile
         </NavLink>
-        <Button>
+        <Button onClick={logoutSubmit}>
           <Icon><ExitToAppRounded /></Icon>
           Logout
         </Button>

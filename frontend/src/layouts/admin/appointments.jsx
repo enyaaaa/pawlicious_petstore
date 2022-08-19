@@ -16,7 +16,7 @@ const adminappointments = () => {
         axios.get(`api/services`).then(({ data }) => {
             setServices(data);
         })
-    })
+    }, [setServices])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },

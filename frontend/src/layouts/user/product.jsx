@@ -5,7 +5,7 @@ import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
 import { useParams, useLocation } from "react-router-dom";
-import { addProduct } from "../../redux/reducers/cartRedux";
+import { addProduct } from "../../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
@@ -19,10 +19,10 @@ const product = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get(`api/products/${id}`).then(({ data }) => {
+    axios.get(`api/product/${id}`).then(({ data }) => {
       setProduct(data);
     })
-  }, [])
+  }, [setProduct])
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -34,7 +34,7 @@ const product = () => {
 
   const handleClick = () => {
     dispatch(
-      addProduct({ product, quantity, price: location.state.price * quantity })
+      addProduct({ product: location.state, quantity, price: location.state.price * quantity })
     );
   };
 
@@ -54,7 +54,7 @@ const product = () => {
           <AddContainer>
             <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>1</Amount>
+              <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
           </AddContainer>

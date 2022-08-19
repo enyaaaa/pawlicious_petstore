@@ -17,7 +17,7 @@ const adminProducts = () => {
         axios.get(`api/products`).then(({ data }) => {
             setProducts(data);
         })
-    },[])
+    },[setProducts])
 
     const handleDelete = (e, id) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const adminProducts = () => {
                 swal("Success", res.data.message, "success");
                 thisClicked.closest('roles').remove();
             }
-            else if (res.data.statud === 404){
+            else if (res.data.status === 404){
                 swal("Error", res.data.message, "error");
             }
         })

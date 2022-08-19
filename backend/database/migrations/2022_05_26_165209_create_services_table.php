@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users');
             $table->text('serviceType');
+            $table->text('petType');
+            $table->text('breed');
             $table->string('furPetName', 50);
             $table->string('email');
             $table->integer('mobile');

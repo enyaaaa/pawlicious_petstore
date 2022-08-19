@@ -51,7 +51,7 @@ const editproduct = () => {
                 navigate('/admin/products', { replace: true });
             }
         });
-    }, []);
+    }, [id]);
 
     const productUpdate = (e) => {
 

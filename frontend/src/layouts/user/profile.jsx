@@ -23,6 +23,7 @@ const profile = () => {
                 localStorage.removeItem('userid');
                 localStorage.removeItem('email');
                 localStorage.removeItem('mobile');
+                localStorage.removeItem('roles');
                 swal('Success', res.data.message, "success");
                 navigate("/", { replace: true });
             }

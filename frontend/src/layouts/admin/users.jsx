@@ -16,7 +16,7 @@ const adminUsers = () => {
         axios.get(`api/users`).then(({ data }) => {
             setUsers(data);
         })
-    })
+    }, [setUsers])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },

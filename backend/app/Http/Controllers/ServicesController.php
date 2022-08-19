@@ -38,6 +38,8 @@ class ServicesController extends Controller
     {
         $validator  = Validator::make($request->all(), [
             "serviceType" => 'required',
+            "petType" => 'required',
+            "breed" => 'required',
             "email" => 'required|email|max:191',
             "mobile" => 'required|max:8',
             "appointmentDate" => 'required',
@@ -56,6 +58,8 @@ class ServicesController extends Controller
 
             $service->userId = $request->input('userId');
             $service->serviceType = $request->input('serviceType');
+            $service->petType = $request->input('petType');
+            $service->breed = $request->input('breed');
             $service->furPetName = $request->input('furPetName');
             $service->email = $request->input('email');
             $service->mobile = $request->input('mobile');
@@ -103,6 +107,8 @@ class ServicesController extends Controller
     {
         $validator  = Validator::make($request->all(), [
             "serviceType" => 'required',
+            "petType" => 'required',
+            "breed" => 'required',
             "email" => 'required|email|max:191',
             "mobile" => 'required|max:8',
             "appointmentDate" => 'required',
@@ -119,7 +125,10 @@ class ServicesController extends Controller
 
             $service = services::find($id);
 
+            $service->userId = $request->input('userId');
             $service->serviceType = $request->input('serviceType');
+            $service->petType = $request->input('petType');
+            $service->breed = $request->input('breed');
             $service->furPetName = $request->input('furPetName');
             $service->email = $request->input('email');
             $service->mobile = $request->input('mobile');

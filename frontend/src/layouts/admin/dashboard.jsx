@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import '../../assets/admin/css/styles.css';
-import '../../assets/admin/js/scripts';
-
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
 

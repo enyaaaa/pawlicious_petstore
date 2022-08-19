@@ -50,7 +50,12 @@ const login = () => {
           console.log(res.data);
           setAuth({roles, token});
           swal('Success', res.data.message, "success");
-          navigate(from, { replace: true });
+          if (localStorage.getItem('roles') == 5150){
+            navigate("/admin", { replace: true });
+          } else {
+            navigate(from, { replace: true });
+          }
+          
 
         } else if (res.data.status === 404) {
           swal('Warning', res.data.message, "warning")
