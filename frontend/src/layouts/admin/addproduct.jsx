@@ -105,7 +105,7 @@ const addproduct = () => {
                             <Item>
                                 <Label>Category</Label>
                                 <Select name="productCategory" id="productCategory" value={formData.productCategory} onChange={handleInput}>
-                                    <option value="---">---</option>
+                                    <option value="--">---</option>
                                     <option value="Food">Food</option>
                                     <option value="Accessories">Accessories</option>
                                     <option value="Cleaning & Toiletries">Cleaning & Toiletries</option>
@@ -115,10 +115,11 @@ const addproduct = () => {
                             <Item>
                                 <Label>Product Type</Label>
                                 <Select name="productType" id="productType" value={formData.productType} onChange={handleInput}>
-                                    <option value="---">---</option>
+                                    <option value="--">---</option>
                                     <option value="Dry Food">Dry Food</option>
                                     <option value="Wet Food">Wet Food</option>
                                     <option value="Leashes">Leashes</option>
+                                    <option value="Toy">Toy</option>
                                     <option value="Collars">Collars</option>
                                     <option value="Bath">Bath</option>
                                     <option value="Pet Wipes">Pet Wipes</option>
@@ -128,11 +129,15 @@ const addproduct = () => {
                             <Item>
                                 <Label>Brand</Label>
                                 <Select name="productBrand" id="productBrand" value={formData.productBrand} onChange={handleInput}>
-                                    <option value="---">---</option>
+                                    <option value="--">---</option>
                                     <option value="Supreme">Supreme</option>
                                     <option value="Absolute Holistic">Absolute Holistic</option>
                                     <option value="Awesome Pawsome">Awesome Pawsome</option>
                                     <option value="Absolute Bites">Absolute Bites</option>
+                                    <option value="Zippypaws">Zippypaws</option>
+                                    <option value="Furball Collective">Furball Collective</option>
+                                    <option value="Zippypaws">Zippypaws</option>
+                                    <option value="Puppia">Puppia</option>
                                 </Select>
                                 <Validation>{error_list.productBrand}</Validation>
                             </Item>
@@ -158,7 +163,7 @@ const addproduct = () => {
                                     <option value="Kitten">Kitten</option>
                                     <option value="Adult">Adult</option>
                                     <option value="Senior">Senior</option>
-                                    <option value="All Ages">All Ages</option>
+                                    <option value="All Life Stages">All Life Stages</option>
                                 </Select>
                                 <Validation>{error_list.suitability}</Validation>
                             </Item>
@@ -169,6 +174,7 @@ const addproduct = () => {
                                     <option value="USA">USA</option>
                                     <option value="Australia">Australia</option>
                                     <option value="Canada">Canada</option>
+                                    <option value="New Zealand">New Zealand</option>
                                 </Select>
                             </Item>
                             <Item>

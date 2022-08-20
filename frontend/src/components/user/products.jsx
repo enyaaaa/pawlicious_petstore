@@ -38,7 +38,7 @@ const products = () => {
             <Brand>{product.productBrand}</Brand>
             <Name>{product.productName}</Name>
             <Price>${product.price}</Price>
-            <Button>ADD TO CART</Button>
+            <Button onClick={() => { goToProduct(product) }}>VIEW PRODUCT</Button>
           </Card>
         )
       })}

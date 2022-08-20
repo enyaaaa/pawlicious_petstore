@@ -9,6 +9,7 @@ import Register from './layouts/user/register';
 import Profile from './layouts/user/profile';
 import Cart from './layouts/user/cart';
 import AddAppointment from './layouts/user/addappointment';
+import EditProfile from './layouts/user/editprofile';
 
 import axios from 'axios'
 import RequireAuth from './components/RequireAuth';
@@ -45,6 +46,7 @@ function App() {
       <Route path='register' element={<Register />} />
       <Route path='services' element={<Services />} />
       <Route path='profile' element={<Profile />} />
+      <Route path='editprofile' element={<EditProfile />} />
       <Route path='cart' element={<Cart />} />
       <Route path='addappointment' element={<AddAppointment />} />
       <Route path='success' element={<Success />} />

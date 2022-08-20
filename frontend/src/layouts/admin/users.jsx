@@ -26,7 +26,7 @@ const adminUsers = () => {
         {
             field: 'profilePic', headerName: 'Profile Pic', width: 110, renderCell: (params) => {
                 return (
-                    <Image src={params.row.profilePic} alt="" />
+                    <Image src={`http://localhost:8000/images/profilepic/${params.row.profilePic}`} alt="" />
                 );
             },
         },

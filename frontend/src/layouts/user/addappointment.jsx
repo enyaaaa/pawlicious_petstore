@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
-import { enGB } from 'date-fns/locale'
-import { DatePicker } from 'react-nice-dates'
 import { useNavigate } from 'react-router-dom';
 import 'react-nice-dates/build/style.css'
 import axios from 'axios';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Box from '@mui/material/Box';
 
 import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
@@ -13,8 +15,10 @@ import Footer from '../../components/user/footer';
 const addappointment = () => {
 
     //using state
-    const [date, setDate] = useState()
+    const [date, setDate] = useState('')
     const [error_list, setError] = useState([]);
+
+    /* const [value, setValue] = useState('') ; */
 
     //navigate users to a different route
     const navigate = useNavigate();
@@ -74,7 +78,7 @@ const addappointment = () => {
             else {
                 setError(res.data.validation_errors);
             }
-        });
+        }, [setFormData]);
     }
 
     return (
@@ -107,19 +111,34 @@ const addappointment = () => {
                         </Item>
                         <Item>
                             <Label>Breed</Label>
-                            <Input type="text" placeholder="Breed" name="breed" id="breed" value={formData.breed} onChange={handleInput}/>
+                            <Input type="text" placeholder="Breed" name="breed" id="breed" value={formData.breed} onChange={handleInput} />
                             <Validation>{error_list.breed}</Validation>
                         </Item>
                         <Item>
                             <Label>Appointment Date</Label>
-                            <DatePicker onDateChange={setDate} date={date} locale={enGB}  >
+                            {/* <DatePicker onDateChange={setDate} date={date} locale={enGB}  >
                                 {({ inputProps, focused }) => (
                                     <Input name="appointmentDate" value={date} 
                                         className={'input' + (focused ? ' -focused' : '')}
                                         {...inputProps}
                                     />
                                 )}
-                            </DatePicker>
+                            </DatePicker> */}
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    label="Custom input"
+                                    value={date}
+                                    onChange={(newValue) => {
+                                        setDate(newValue);
+                                    }}
+                                    renderInput={({ inputRef, inputProps, InputProps }) => (
+                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                            <Input ref={inputRef} {...inputProps} />
+                                            {InputProps?.endAdornment}
+                                        </Box>
+                                    )}
+                                />
+                            </LocalizationProvider>
                             <Validation>{error_list.appointmentDate}</Validation>
                         </Item>
                         <Item>
@@ -154,8 +173,11 @@ const addappointment = () => {
                             <Input type="text" placeholder="Email" disabled={true} name="email" id="email" value={localStorage.getItem('email')} />
                             <Validation>{error_list.email}</Validation>
                         </Item>
+
                     </Form>
-                    <Button onClick={appointmentSubmit}>ADD</Button>
+                    <Title>
+                        <Button onClick={appointmentSubmit}>ADD</Button>
+                    </Title>
                 </Wrapper>
             </Container>
             <Footer />

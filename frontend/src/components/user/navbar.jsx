@@ -1,10 +1,11 @@
 import { Badge } from "@material-ui/core";
 import { LocalMallOutlined, SearchOutlined, AccountCircleOutlined } from "@material-ui/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from '../../assets/user/img/pets.png';
 import { NavLink as Link } from 'react-router-dom';
 import { mobile } from "../../responsive";
+import axios from "axios";
 const navbar = () => {
 
   //if user is not logged in it will relocate the user to login page else it will go to the profile page
@@ -24,18 +25,19 @@ const navbar = () => {
   if (!localStorage.getItem('auth_token')) {
     Cart = (
       <NavLink to='/login'>
-        <LocalMallOutlined />
       </NavLink>
     );
   } else {
     Cart = (
       <NavLink to='/cart'>
-        <Badge badgeContent={1} color="primary" overlap="rectangular">
+        {/* <Badge badgeContent={shoppingcart.length} color="primary" overlap="rectangular"> */}
           <LocalMallOutlined />
-        </Badge>
+        {/* </Badge> */}
       </NavLink>
     );
   }
+
+
 
   return (
     <Container>

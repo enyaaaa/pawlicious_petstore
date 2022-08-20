@@ -169,8 +169,6 @@ class ProductsController extends Controller
                     unset($products['productImage']);
                 }
 
-
-
                 $products->update();
                 return response()->json([
                     'status' => 200,

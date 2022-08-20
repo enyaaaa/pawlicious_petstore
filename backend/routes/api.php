@@ -33,6 +33,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::apiResource('users', UsersController::class);
+Route::get('profile', 'App\Http\Controllers\UsersController@viewprofile');
+Route::post('updateprofile', 'App\Http\Controllers\UsersController@editprofile');
 
 Route::apiResource('products', ProductsController::class);
 Route::get('products/{petType}', "App\Http\Controllers\ProductsController@show");

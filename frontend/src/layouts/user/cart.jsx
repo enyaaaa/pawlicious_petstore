@@ -9,6 +9,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import swal from "sweetalert";
+import StripeCheckout from "react-stripe-checkout";
+
+const KEY = "pk_test_51LLfVOEiKLCq6uLnIqYlj5k44VNCTqyMbfjihj1heaBVnsu447YykI2nqGy7x6UeDZxlS1AE5XFWiisZhLCLyqja00rqmkEFNe";
 
 const shopcart = () => {
 
@@ -23,21 +26,26 @@ const shopcart = () => {
     navigate('/login');
   }
 
+  const [stripeToken, setStripeToken] = useState(null);
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
   const isMounted = true;
 
   useEffect(() => {
-
     axios.get('/api/cart').then(res => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCart(res.data.cart);
         } else if (res.data.status === 401) {
-          navigate('/');
+          navigate('/login');
           swal('Warning', res.data.message, 'error')
         }
       }
     })
-  }, [navigate])
+  })
 
   const handleDecrement = (cardId) => {
     setCart(cart => cart.map((item) => cardId === item.id ? { ...item, productQty: item.productQty - (item.productQty > 1 ? 1 : 0) } : item));
@@ -134,7 +142,18 @@ const shopcart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>${totalCartPrice}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Pawlicious petstore"
+              image="https://firebasestorage.googleapis.com/v0/b/great-places-7d22c.appspot.com/o/pets.png?alt=media&token=40542deb-ef47-487c-97bc-aceba0a0066a"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${totalCartPrice}`}
+              amount={totalCartPrice * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

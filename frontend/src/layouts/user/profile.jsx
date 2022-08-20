@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -8,12 +8,27 @@ import Announcement from '../../components/user/announcement';
 import Navbar from '../../components/user/navbar';
 import Footer from '../../components/user/footer';
 
-
-
 const profile = () => {
 
   // navigate users to another route
   const navigate = useNavigate();
+
+  const [profile, setProfile] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/profile').then(res => {
+      if (res.data.status === 200) {
+        setProfile(res.data.profile);
+      } else if (res.data.status === 401) {
+        navigate('/login');
+      }
+    })
+  }, [setProfile])
+
+
+  const toEditProfile = () => {
+    navigate("/editprofile", { state: profile })
+  }
 
   //function when user click on logout
   const logoutSubmit = (e) => {
@@ -38,18 +53,38 @@ const profile = () => {
       <Announcement />
       <Navbar />
       <Container>
-        <Wrapper>
-          <Title>Profile</Title>
-          <Item>
-            <Label>Mobile</Label>
-          </Item>
-          <Item>
-            <Label>Email</Label>
-          </Item>
-          <Title>
-            <Button type='submit' onClick={logoutSubmit}>LOGOUT</Button>
-          </Title>
-        </Wrapper>
+        {profile.map((item, idx) => {
+          return (
+            <Wrapper key={idx}>
+              <Title>PROFILE</Title>
+              <Item>
+                <Imagepic src={`http://localhost:8000/images/profilepic/${item.profilePic}`} alt="No profile image" />
+              </Item>
+              <Item>
+                <Label>username</Label>
+                <Info>{item.username}</Info>
+              </Item>
+              <Item>
+                <Label>email</Label>
+                <Info>{item.email}</Info>
+              </Item>
+              <Item>
+                <Label>mobile</Label>
+                <Info>{item.mobile}</Info>
+              </Item>
+              <Actions>
+
+                <Edit>
+                  <Button onClick={() => { toEditProfile() }}>EDIT</Button>
+                </Edit>
+
+                <Logout>
+                  <Button onClick={logoutSubmit}>LOGOUT</Button>
+                </Logout>
+              </Actions>
+            </Wrapper>
+          )
+        })}
       </Container>
       <Footer />
     </div>
@@ -69,33 +104,31 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 30%;
   background-color: rgba(255,255,255,.7);
-  align-items: center;
-  justify-content: center;
   border-radius: 20px;
-  padding: 40px;
-
+  text-align: center;
+  padding:40px;
 `;
 
 const Title = styled.h1`
-text-align: center;
   font-size: 24px;
   font-weight: 400;
 `;
 
-const Form = styled.form`
-margin-left:30px;
-display: flex;
-flex-wrap: wrap;
+const Imagepic = styled.img`
+    height:150px;
+    width: 150px;
+    border-radius: 100%;
+`;
+
+const Info = styled.div`
+
 `;
 
 const Item = styled.div`
-width: 600px;
-display: flex;
-flex-direction: column;
+font-size: 20px;
 margin-top: 10px;
-margin-right: 20px;
 `;
 
 const Label = styled.div`
@@ -105,18 +138,17 @@ margin-bottom: 10px;
   color: rgb(151, 150, 150);
 `;
 
-const Input = styled.input`
-  min-width: 100%;
-  padding: 10px;
+const Actions = styled.div`
+display:flex;
+margin-left: 78px;
 `;
 
-const Validation = styled.span`
-    font-size: 12px;
-    color: #b5968d;
-`;
 
-const Select = styled.select`
-  padding: 12px;
+const Edit = styled.div`
+margin-right: 10px;
+`;
+const Logout = styled.div`
+margin-left: 5px;
 `;
 
 const Button = styled.button`

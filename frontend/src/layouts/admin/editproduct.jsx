@@ -130,6 +130,7 @@ const editproduct = () => {
                                     <option value="Dry Food">Dry Food</option>
                                     <option value="Wet Food">Wet Food</option>
                                     <option value="Leashes">Leashes</option>
+                                    <option value="Toy">Toy</option>
                                     <option value="Collars">Collars</option>
                                     <option value="Bath">Bath</option>
                                     <option value="Pet Wipes">Pet Wipes</option>
@@ -144,6 +145,10 @@ const editproduct = () => {
                                     <option value="Absolute Holistic">Absolute Holistic</option>
                                     <option value="Awesome Pawsome">Awesome Pawsome</option>
                                     <option value="Absolute Bites">Absolute Bites</option>
+                                    <option value="Zippypaws">Zippypaws</option>
+                                    <option value="Furball Collective">Furball Collective</option>
+                                    <option value="Zippypaws">Zippypaws</option>
+                                    <option value="Puppia">Puppia</option>
                                 </Select>
                                 <Validation>{error_list.productBrand}</Validation>
                             </Item>
