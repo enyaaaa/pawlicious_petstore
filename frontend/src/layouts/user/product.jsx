@@ -66,6 +66,10 @@ const product = () => {
         <InfoContainer>
           <Title>{location.state.productName}</Title>
           <Desc>{location.state.description}</Desc>
+          <Desc>Category : {location.state.productCategory}</Desc>
+          <Desc>Product Type : {location.state.productType}</Desc>
+          <Desc>Suitability : {location.state.suitability}</Desc>
+          <Desc>Made In : {location.state.madeIn}</Desc>
           <Price>${location.state.price}</Price>
           <AddContainer>
             <AmountContainer>
@@ -101,7 +105,7 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
+  flex: 0.5;
   padding: 0px 50px;
 `;
 

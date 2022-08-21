@@ -128,17 +128,7 @@ const addproduct = () => {
                             </Item>
                             <Item>
                                 <Label>Brand</Label>
-                                <Select name="productBrand" id="productBrand" value={formData.productBrand} onChange={handleInput}>
-                                    <option value="--">---</option>
-                                    <option value="Supreme">Supreme</option>
-                                    <option value="Absolute Holistic">Absolute Holistic</option>
-                                    <option value="Awesome Pawsome">Awesome Pawsome</option>
-                                    <option value="Absolute Bites">Absolute Bites</option>
-                                    <option value="Zippypaws">Zippypaws</option>
-                                    <option value="Furball Collective">Furball Collective</option>
-                                    <option value="Zippypaws">Zippypaws</option>
-                                    <option value="Puppia">Puppia</option>
-                                </Select>
+                                <Input type="text" placeholder="brand" name="productBrand" id="productBrand" value={formData.productBrand} onChange={handleInput} />
                                 <Validation>{error_list.productBrand}</Validation>
                             </Item>
                             <Item>
@@ -153,7 +143,7 @@ const addproduct = () => {
                             </Item>
                             <Item>
                                 <Label>Description</Label>
-                                <Textarea type="text" name='description' placeholder="123" value={formData.description} onChange={handleInput} />
+                                <Textarea type="text" name='description' placeholder="description" value={formData.description} onChange={handleInput} />
                             </Item>
                             <Item>
                                 <Label>Suitability</Label>

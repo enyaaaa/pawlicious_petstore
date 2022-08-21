@@ -68,7 +68,7 @@ const editprofile = () => {
             <Navbar />
             <Container>
                 <Wrapper>
-                    <Title>PROFILE</Title>
+                    <Title>UPDATE PROFILE</Title>
                     <Form onSubmit={profileUpdate} enctype="multipart/form-data">
                         <Item>
                             <Imagepic src={`http://localhost:8000/images/profilepic/${location.state[0].profilePic}`} alt="No profile image" />

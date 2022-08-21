@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink as Link, useNavigate } from 'react-router-dom';
-import { AccountCircleOutlined, CreditCardRounded, DashboardRounded, StoreRounded, PersonOutlineRounded, ExitToAppRounded, AccessAlarmOutlined } from "@material-ui/icons";
+import { AccountCircleOutlined, CreditCardRounded, DashboardRounded, StoreRounded, PersonOutlineRounded, ExitToAppRounded, AccessAlarmOutlined, ReceiptOutlined } from "@material-ui/icons";
 import axios from "axios";
 
 const Sidebar = () => {

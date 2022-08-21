@@ -16,6 +16,7 @@ import RequireAuth from './components/RequireAuth';
 import AdminProfile from './layouts/admin/profile';
 import AdminDashboard from './layouts/admin/dashboard';
 import AdminUsers from './layouts/admin/users';
+import AdminEditProfile from './layouts/admin/editprofile';
 import AdminProducts from './layouts/admin/products';
 import AddProduct from './layouts/admin/addproduct';
 import EditProduct from './layouts/admin/editproduct';
@@ -55,6 +56,7 @@ function App() {
       <Route element={<RequireAuth />}>
         <Route path='admin' element={<AdminDashboard />} />
         <Route path='admin/profile' element={<AdminProfile />} />
+        <Route path='admin/editprofile' element={<AdminEditProfile />} />
         <Route path='admin/users' element={<AdminUsers />} />
         <Route path='admin/products' element={<AdminProducts />} />
         <Route path='admin/addproduct' element={<AddProduct />} />

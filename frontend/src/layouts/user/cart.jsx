@@ -132,7 +132,7 @@ const shopcart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>${subtotalCartPrice}</SummaryItemPrice>
+              <SummaryItemPrice>${subtotalCartPrice.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -140,7 +140,7 @@ const shopcart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>${totalCartPrice}</SummaryItemPrice>
+              <SummaryItemPrice>${totalCartPrice.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
               name="Pawlicious petstore"

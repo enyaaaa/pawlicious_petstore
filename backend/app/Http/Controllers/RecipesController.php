@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\recipes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RecipesController extends Controller
 {
@@ -15,6 +16,22 @@ class RecipesController extends Controller
     public function index()
     {
         return recipes::all();
+    }
+
+    public function getrecipe($id)
+    {
+        $recipe = recipes::find($id);
+        if ($recipe) {
+            return response()->json([
+                'status' => 200,
+                "product" => $recipe
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                "message" => 'No product found'
+            ]);
+        }
     }
 
     /**
@@ -33,19 +50,42 @@ class RecipesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $recipe = new recipes();
+        $validator  = Validator::make($request->all(), [
+            "title" => 'required',
+            "ingredients" => 'required',
+            "nutritionalValues" => 'required',
+            "productImage" => "mimes:jpeg,png,jpg"
+        ]);
 
-        $recipe->title = $request->input('title');
-        $recipe->recipeImage = $request->input('recipeImage');
-        $recipe->video = $request->input('video');
-        $recipe->ingredients = $request->input('ingredients');
-        $recipe->directions = $request->input('directions');
-        $recipe->nutritionalValues = $request->input('nutritionalValues');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Some fields are missing',
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $recipe = new recipes();
 
-        if($recipe->save()){
-            return $recipe;
+            $recipe->title = $request->input('title');
+            $recipe->video = $request->input('video');
+            $recipe->ingredients = $request->input('ingredients');
+            $recipe->directions = $request->input('directions');
+            $recipe->nutritionalValues = $request->input('nutritionalValues');
+
+
+            $recipe_name = time() . '.' . $request->recipeImage->extension();
+            $request->recipeImage->move(public_path('/images/recipe'), $recipe_name);
+
+            $recipe->recipeImage = $recipe_name;
+
+            $recipe->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Recipe Added Successfully',
+            ]);
         }
     }
 
@@ -78,20 +118,52 @@ class RecipesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+
+    public function update(Request $request, $id)
     {
-        $recipe = recipes::find($request->id);
+        $validator  = Validator::make($request->all(), [
+            "title" => 'required',
+            "ingredients" => 'required',
+            "nutritionalValues" => 'required',
+        ]);
 
-        $recipe->title = $request->input('title');
-        $recipe->recipeImage = $request->input('recipeImage');
-        $recipe->video = $request->input('video');
-        $recipe->ingredients = $request->input('ingredients');
-        $recipe->directions = $request->input('directions');
-        $recipe->nutritionalValues = $request->input('nutritionalValues');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Some fields are missing',
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $recipe = recipes::find($id);
+
+            if ($recipe) {
+                $recipe->title = $request->input('title');
+                $recipe->video = $request->input('video');
+                $recipe->ingredients = $request->input('ingredients');
+                $recipe->directions = $request->input('directions');
+                $recipe->nutritionalValues = $request->input('nutritionalValues');
 
 
-        if($recipe->save()){
-            return $recipe;
+                if ($recipe_name = $request->file('recipeImage')) {
+                    $recipe_name = time() . '.' . $request->recipeImage->extension();
+                    $request->recipeImage->move(public_path('/images/recipe'), $recipe_name);
+
+                    $recipe->productImage = $recipe_name;
+                } else {
+                    unset($recipe['recipeImage']);
+                }
+
+                $recipe->update();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Recipe Updated Successfully',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Recipe Not Found',
+                ]);
+            }
         }
     }
 
@@ -105,7 +177,7 @@ class RecipesController extends Controller
     {
         $recipe = recipes::find($request->id);
 
-        if($recipe->delete()){
+        if ($recipe->delete()) {
             return $recipe;
         }
     }

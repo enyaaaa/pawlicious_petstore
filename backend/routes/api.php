@@ -43,8 +43,9 @@ Route::post('updateproduct/{id}', 'App\Http\Controllers\ProductsController@updat
 Route::delete('products/{id}', 'App\Http\Controllers\ProductsController@destroy');
 
 Route::apiResource('recipes', RecipesController::class);
-Route::post('updaterecipes', 'App\Http\Controllers\RecipesController@update');
+Route::post('updaterecipe/{id}', 'App\Http\Controllers\ProductsController@update');
 Route::delete('recipes', 'App\Http\Controllers\RecipesController@destroy');
+Route::get('recipe/{id}', "App\Http\Controllers\RecipesController@getrecipe");
 
 Route::apiResource('product_reviews', ProductReviewsController::class);
 Route::post('updateproduct_reviews', 'App\Http\Controllers\ProductReviewsController@update');

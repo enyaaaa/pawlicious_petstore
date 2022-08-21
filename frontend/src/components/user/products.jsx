@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import product from "../../layouts/user/product";
+import { SearchRounded } from "@material-ui/icons";
 
 const products = () => {
 
@@ -13,6 +15,7 @@ const products = () => {
 
   //set products
   const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState('');
 
   //getting products from api
   useEffect(() => {
@@ -28,21 +31,27 @@ const products = () => {
   }
 
   return (
-    <Container>
-      {products.map((product) => {
-        return (
-          <Card key={product.id}>
-            <Imagecontainer>
-              <Image onClick={() => { goToProduct(product) }} src={`http://localhost:8000/images/product/${product.productImage}`} />
-            </Imagecontainer>
-            <Brand>{product.productBrand}</Brand>
-            <Name>{product.productName}</Name>
-            <Price>${product.price}</Price>
-            <Button onClick={() => { goToProduct(product) }}>VIEW PRODUCT</Button>
-          </Card>
-        )
-      })}
-    </Container>
+    <div>
+      <Search>
+        <Icon><SearchRounded /></Icon>
+        <Input type="text" placeholder="Search..." onChange={e => setQuery(e.target.value)} />
+      </Search>
+      <Container>
+        {products.filter(product => product.productName.toLowerCase().includes(query)).map((product) => {
+          return (
+            <Card key={product.id}>
+              <Imagecontainer>
+                <Image onClick={() => { goToProduct(product) }} src={`http://localhost:8000/images/product/${product.productImage}`} />
+              </Imagecontainer>
+              <Brand>{product.productBrand}</Brand>
+              <Name>{product.productName}</Name>
+              <Price>${product.price}</Price>
+              <Button onClick={() => { goToProduct(product) }}>VIEW PRODUCT</Button>
+            </Card>
+          )
+        })}
+      </Container>
+    </div>
   );
 };
 
@@ -51,7 +60,30 @@ const Container = styled.div`
   position: relative;
   box-sizing: border-box;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+`;
+
+const Search = styled.div`
+    justify-content: center;
+    margin-left:40%;
+    margin-top:20px;
+    width:20%;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color:#F7DDD7;   
+    border-radius: 20px;
+`;
+
+const Input = styled.input`
+    border: none;
+    outline: none;
+    background: transparent; 
+`;
+
+const Icon = styled.div`
+    margin-right: 10px;
 `;
 
 const Card = styled.div`

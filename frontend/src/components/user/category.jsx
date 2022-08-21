@@ -11,21 +11,21 @@ const category = () => {
                     <Image src="https://www.supermarketnews.com/sites/supermarketnews.com/files/styles/article_featured_retina/public/Online%20pet%20food%20trends.jpg?itok=Lu_BcCAF8" />
                     <Info>
                         <Title>FOOD</Title>
-                        <NavLink to='/products'>SHOW MORE</NavLink>
+                        <NavLink to='/products/Dog'>SHOW MORE</NavLink>
                     </Info>
                 </Container>
                 <Container>
                     <Image src="https://media.istockphoto.com/photos/accessories-for-cat-and-dog-on-blue-background-pet-care-and-training-picture-id1248454290?k=20&m=1248454290&s=170667a&w=0&h=b7DRkX0QMMLrlBkeNX4dQQvVZZgRZO2-CTSFyAoLjW8=" />
                     <Info>
                         <Title>ACCESSORIES</Title>
-                        <NavLink to='/products'>SHOW MORE</NavLink>
+                        <NavLink to='/products/Dog'>SHOW MORE</NavLink>
                     </Info>
                 </Container>
                 <Container>
                     <Image src="https://sc04.alicdn.com/kf/H8f929211b7a1423d91dd37aa93daa6ad7/244211425/H8f929211b7a1423d91dd37aa93daa6ad7.jpg" />
                     <Info>
                         <Title>CLEANING & TOILETRIES</Title>
-                        <NavLink to='/products'>SHOW MORE</NavLink>
+                        <NavLink to='/products/Dog'>SHOW MORE</NavLink>
                     </Info>
                 </Container>
             </Wrapped>

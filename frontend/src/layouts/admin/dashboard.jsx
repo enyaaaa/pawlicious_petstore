@@ -14,7 +14,7 @@ const adminDashboard = () => {
                 <Navbar />
                 <Main>
                     <Item>
-                        <Image src="https://media.istockphoto.com/vectors/remote-support-online-remotely-access-and-control-desktop-of-or-via-vector-id1135471958?k=20&m=1135471958&s=612x612&w=0&h=QyKqoO-7lCmFpbtG2fBWraaORLFVR31MIcSDqEudeng=" />
+                        <Image src="https://coconuts.co/wp-content/uploads/2021/12/pets-g83d42e0cc_1920.jpg" />
                         <Info>
                             <Title>WELCOME TO ADMIN</Title>
                         </Info>
@@ -46,7 +46,7 @@ const Main = styled.div`
 const Item = styled.div`
     flex: 1;
     margin: 3px;
-    height: 60vh;
+    height: 80vh;
     position: relative;
 `;
 
@@ -55,6 +55,7 @@ const Image = styled.img`
     height: 100%;
     opacity: 0.5;
     object-fit: cover;
+    border-radius: 20px;
 `;
 
 
@@ -71,9 +72,10 @@ const Info = styled.div`
 `;
 
 const Title = styled.h1`
+margin-top: -420px;
     color: black;
     text-align: center;
-    font-size: 100px;
+    font-size: 90px;
 `;
 
 export default adminDashboard;

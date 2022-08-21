@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import Chip from '@mui/material/Chip';
 
 import Navbar from '../../components/admin/navbar'
 import Sidebar from "../../components/admin/sidebar";
@@ -15,7 +16,7 @@ const adminorders = () => {
 
     //getting all orders that users has made
     useEffect(() => {
-        axios.get(`api/orders`).then(({ data }) => {
+        axios.get(`api/addtocart`).then(({ data }) => {
             setOrders(data);
         })
     }, [setOrders])
@@ -23,23 +24,10 @@ const adminorders = () => {
     //columns fieldsof orders
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'petType', headerName: 'Pet Type', width: 90 },
-        { field: 'productCategory', headerName: 'Category', width: 90 },
-        { field: 'productType', headerName: 'Product Type', width: 110 },
-        {
-            field: 'productImage', headerName: 'Image', width: 90, renderCell: (params) => {
-                return (
-
-                    <Image src={params.row.productImage} alt="" />
-
-                );
-            },
-        },
-        { field: 'productBrand', headerName: 'Brand', width: 90 },
-        { field: 'productName', headerName: 'Name', width: 200 },
-        { field: 'price', headerName: 'Price', width: 90 },
-        { field: 'description', headerName: 'Description', width: 100 },
-        { field: 'madeIn', headerName: 'Made In', width: 90 },
+        { field: 'userId', headerName: 'User Id', width: 90 },
+        { field: 'productId', headerName: 'Product Id', width: 90 },
+        { field: 'productQty', headerName: 'Product Qty', width: 110 },
+        { field: 'created_at', headerName: 'Created', width: 115 },
         {
             field: "action",
             headerName: "Action",
@@ -47,13 +35,7 @@ const adminorders = () => {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/admin/editproduct/" + params.row.id}>
-                            <Edit>Edit</Edit>
-                        </Link>
-                        <DeleteOutline
-                            className="productListDelete"
-                            onClick={() => handleDelete(params.row.id)}
-                        />
+                        <Chip label="success" color="success" variant="outlined" />
                     </>
                 );
             },

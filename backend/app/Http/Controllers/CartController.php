@@ -117,4 +117,9 @@ class CartController extends Controller
             ]);
         }
     }
+
+    public function index()
+    {
+        return Cart::all();
+    }
 }
