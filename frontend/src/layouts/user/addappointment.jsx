@@ -73,7 +73,7 @@ const addappointment = () => {
                     appointmentTime: "",
                 })
                 setError([]);
-                navigate('/profile', { replace: true });
+                navigate('/services', { replace: true });
             }
             else {
                 setError(res.data.validation_errors);
