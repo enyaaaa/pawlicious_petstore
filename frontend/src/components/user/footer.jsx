@@ -13,6 +13,9 @@ const footer = () => {
           wholesome, eco-friendly pet food, treats, and goods
           for a healthier, happier pet
         </Desc>
+        <Desc>
+          © PAWLICIOUS All Rights Reserved.
+        </Desc>
       </Left>
       <Center>
         <Title>Shop</Title>

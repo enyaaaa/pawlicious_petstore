@@ -29,7 +29,7 @@ const editprofile = () => {
         username: location.state[0].username,
         mobile: location.state[0].mobile,
         profilePic: location.state[0].profilePic,
-    },[]);
+    }, []);
 
     //handle users input
     const handleInput = (e) => {
@@ -49,7 +49,6 @@ const editprofile = () => {
         axios.post(`/api/updateprofile`, data).then(res => {
             if (res.data.status === 200) {
                 swal("Success", res.data.message, "success");
-                setError([]);
                 navigate('/profile', { replace: true });
             }
             else if (res.data.status === 404) {
