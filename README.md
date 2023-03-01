@@ -1,5 +1,5 @@
 # pawlicious petstore
-![logo_icon](https://github.com/enyaaaa/pawlicious_petstore/blob/main/frontend/src/assets/user/img/pets.png?raw=true)
+![logo_icon](https://github.com/enyaaaa/pawlicious_petstore/blob/main/frontend/src/assets/user/img/pets.png)
 
 
 Pawlicious allow people to purchase products online without having to leave the house. Provides services like online booking for authenticated users to book for gromming appointment, authenticated administrator to monitor and add/remove products into the list.
