@@ -1,5 +1,5 @@
 # pawlicious petstore
-![logo_icon](https://user-images.githubusercontent.com/83064421/218792571-58c40752-3ed3-40d2-9097-5f10e46ce7e4.png)
+![logo_icon](https://github.com/enyaaaa/pawlicious_petstore/blob/main/frontend/src/assets/user/img/pets.png?raw=true)
 
 
 Pawlicious allow people to purchase products online without having to leave the house. Provides services like online booking for authenticated users to book for gromming appointment, authenticated administrator to monitor and add/remove products into the list.
@@ -46,6 +46,3 @@ This project was created for FWEB (Full Stack Web Development) module
   
 - <b>Laravel</b>
   - Backend
-
-- <b>PHPmyadmin</b>
-  - View database
