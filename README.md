@@ -1,6 +1,5 @@
 # pawlicious petstore
-![logo_icon](https://github.com/enyaaaa/pawlicious_petstore/blob/main/frontend/src/assets/user/img/pets.png)
-
+<img src="https://user-images.githubusercontent.com/83064421/222097761-e1aa7094-4bbd-4b9c-9090-eb5b75eeea0e.png" width="200" height="200">
 
 Pawlicious allow people to purchase products online without having to leave the house. Provides services like online booking for authenticated users to book for gromming appointment, authenticated administrator to monitor and add/remove products into the list.
 This project was created for FWEB (Full Stack Web Development) module
